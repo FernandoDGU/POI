@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1095152885615",
+    "project_id": "proyecto-chat-poi",
+    "storage_bucket": "proyecto-chat-poi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095152885615:android:55a66639032a4445a6529a",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095152885615-io5i3859i5v5nvdiv74taiv70sr23a8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFwKXT5MbksKlaE36ZeUIm-M_lVsdg6v0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095152885615-io5i3859i5v5nvdiv74taiv70sr23a8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

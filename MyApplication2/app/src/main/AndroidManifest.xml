@@ -32,6 +32,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.MenuActivity"/>
+        <activity android:name=".Activity.VerUsuariosActivity"/>
+        <activity android:name=".Activity.Mensaje_IndividualActivity"/>
 
     </application>
 

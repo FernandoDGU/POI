@@ -21,9 +21,11 @@ class LoginActivity : AppCompatActivity() {
     private var btnLogin: Button? = null
     private var btnRegistro: Button? = null
     private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        this.setTitle("Inicio de sesion")
         txtCorreo = findViewById<View>(R.id.idCorreoLogin) as EditText
         txtContraseña = findViewById<View>(R.id.idContraseñaLogin) as EditText
         btnLogin = findViewById<View>(R.id.idLoginLogin) as Button
@@ -96,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun nextActivity() {
-        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        startActivity(Intent(this@LoginActivity, MenuActivity::class.java))
         finish()
     }
 }

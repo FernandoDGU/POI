@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        title = "Bienvenido"
         //Obtener los datos del usuario
         auth = FirebaseAuth.getInstance()
         if(auth.currentUser!=null){

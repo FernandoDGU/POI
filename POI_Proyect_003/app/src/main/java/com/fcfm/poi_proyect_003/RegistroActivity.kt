@@ -20,7 +20,7 @@ class RegistroActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
-
+        title = "Registrar Usuario"
         auth = FirebaseAuth.getInstance()
 
         btnAceptar.setOnClickListener {

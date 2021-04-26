@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        android:layout_margin="7dp"
-        android:maxEms = "20"
+        android:layout_margin="8dp"
+        android:maxEms="20"
         android:minEms="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/contMensaje"
             android:layout_width="196dp"
             android:layout_height="wrap_content"
-            android:background="#E4E4E4"
+            android:background="#93CCFA"
             android:orientation="vertical"
             android:padding="8dp">
 
@@ -37,19 +37,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="Mensaje de prueba" />
+
             <View
                 android:id="@+id/View"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                />
+                android:layout_height="1dp" />
 
             <TextView
                 android:id="@+id/tvFecha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"
-                android:text="25/04/2021 - 4:37 A.M"
-                />
+                android:text="25/04/2021 - 4:37 A.M" />
         </LinearLayout>
 
     </FrameLayout>
@@ -61,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent=".5"
+        app:layout_constraintGuide_percent="0.5"
         >
 
     </androidx.constraintlayout.widget.Guideline>

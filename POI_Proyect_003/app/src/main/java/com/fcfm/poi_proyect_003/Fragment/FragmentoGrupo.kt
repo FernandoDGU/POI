@@ -15,7 +15,6 @@ class FragmentoGrupo: Fragment() {
     private val Ref = database.getReference()
 
     private val listMensajes = mutableListOf<ChatGrupal>()
-
     private lateinit var rootView: View
 
     override fun onCreateView(

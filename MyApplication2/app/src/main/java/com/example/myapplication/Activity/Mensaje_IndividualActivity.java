@@ -160,9 +160,9 @@ public class Mensaje_IndividualActivity extends AppCompatActivity {
                     UsuarioDAO.getInstancia().obtenerInformacionDeUsuarioPorLLave(mensaje.getKeyEmisor(), new UsuarioDAO.IDevolverUsuario() {
                         @Override
                         public void devolverUsuario(LUsuario lUsuario) {
-                            //mapUsuariosTemporales.put(mensaje.getKeyEmisor(),lUsuario);
+                            mapUsuariosTemporales.put(mensaje.getKeyEmisor(),lUsuario);
                             lMensaje.setlUsuario(lUsuario);
-                            //adapter.actualizarMensaje(posicion,lMensaje);
+                            adapter.actualizarMensaje(posicion,lMensaje);
                         }
 
                         @Override
@@ -242,12 +242,12 @@ public class Mensaje_IndividualActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Uri> task) {
                     if(task.isSuccessful()){
                         Uri uri = task.getResult();
-                        Mensaje mensaje = new Mensaje();
+                        Mensaje_Individual mensaje = new Mensaje_Individual();
                         mensaje.setMensaje("El uuario ha enviado una foto");
                         mensaje.setUrlFoto(uri.toString());
                         //mensaje.setContieneFoto(true);
-                       // mensaje.setKeyEmisor(UsuarioDAO.getInstancia().getKeyUsuario());
-                        MensajeriaDAO.getInstancia().nuevoMensaje(UsuarioDAO.getInstancia().getKeyUsuario(),KEY_RECEPTOR,mensaje);
+                        mensaje.setKeyEmisor(UsuarioDAO.getInstancia().getKeyUsuario());
+                        MensajeriaDAO.getInstancia().nuevoMensaje_Individual(UsuarioDAO.getInstancia().getKeyUsuario(),KEY_RECEPTOR,mensaje);
                     }
                 }
             });

@@ -4,6 +4,7 @@ import com.example.myapplication.Entidades.Mensaje;
 import com.example.myapplication.Entidades.Mensaje_Individual;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class MensajeriaDAO {
 
@@ -21,7 +22,7 @@ public class MensajeriaDAO {
         database = FirebaseDatabase.getInstance();
         referenceMensajeria = database.getReference("Mensajes");
         //storage = FirebaseStorage.getInstance();
-        //referenceUsuarios = database.getReference(Constantes.NODO_USUARIOS);
+        //referenceUsuarios = database.getReference("Usuario");
         //referenceFotoDePerfil = storage.getReference("Fotos/FotoPerfil/"+getKeyUsuario());
     }
 

@@ -32,7 +32,7 @@ class UsuariosAdapter(private val context: Context, private val userList:ArrayLi
         val user = userList[position]
        // val firebase: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
         holder.txtUserName.text = user.nombre
-        holder.txtTemp.text = user.idAlumno
+       // holder.txtTemp.text = user.estado
         holder.layoutUser.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra("userName", user.nombre)

@@ -31,20 +31,23 @@
             app:backgroundTint="#673AB7"
             tools:ignore="MissingConstraints"
             tools:text="Contactos" />
+
         <Button
             android:id="@+id/btnChatGrupal"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/btnContactos"
+            android:layout_alignEnd="@+id/btnContactos"
+            android:layout_alignBottom="@+id/btnContactos"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="78dp"
             android:text="Chat Grupal"
             app:backgroundTint="#673AB7"
-            tools:ignore="MissingConstraints"
-            app:layout_constraintBottom_toBottomOf="@+id/btnContactos"
-            app:layout_constraintEnd_toEndOf="@+id/btnContactos"
-            app:layout_constraintStart_toStartOf="@+id/btnContactos"
-            app:layout_constraintTop_toTopOf="@+id/btnContactos"
-            />
+            tools:ignore="MissingConstraints" /><![CDATA[
 
         />
+    ]]>
     </RelativeLayout>
 
     <com.google.android.material.tabs.TabLayout

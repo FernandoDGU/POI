@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
 
 class ChatGrupoActivity: AppCompatActivity() {
+    private val Home = HomeActivity()
     private val database = FirebaseDatabase.getInstance()
     private val chatRef = database.getReference("SalaChat")
     private val Ref = database.getReference()
@@ -37,7 +38,7 @@ class ChatGrupoActivity: AppCompatActivity() {
 
         //Checar porque se ve de ese tamaño los mensajes
         CarreraUsuario = "LMAD"
-        CorreoUsuario = "prueba3@co.com"
+        CorreoUsuario = (Home.getCorreo())
 
 
         Ref.child("Usuarios").orderByChild("correo").equalTo(CorreoUsuario).addValueEventListener(object :ValueEventListener{

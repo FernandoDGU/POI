@@ -64,16 +64,20 @@ class HomeActivity : AppCompatActivity(){
             startActivity(Intent(this, ChatGrupoActivity::class.java))
 
         }
+        btnContactos.setOnClickListener {
+            startActivity(Intent(this, UsuariosActivity::class.java))
+
+        }
 
 
     }
-        @JvmName("getCarrera1")
-        fun getCarrera(): String{
+    @JvmName("getCarrera1")
+    fun getCarrera(): String{
         return carrera
-        }
+    }
 
-        @JvmName("getCorreo1")
-        fun getCorreo(): String {
+    @JvmName("getCorreo1")
+    fun getCorreo(): String {
         return correo
-        }
+    }
 }

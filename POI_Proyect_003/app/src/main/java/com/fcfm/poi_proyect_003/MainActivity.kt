@@ -50,10 +50,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun Login(correo:String, pass:String){
         auth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(this){
-                task ->if(task.isSuccessful){
-                Toast.makeText(this, "Usuario logeado correctamente", Toast.LENGTH_SHORT).show()
-                val intentHome = Intent(this, HomeActivity::class.java)
-                startActivity(intentHome)
+            task ->if(task.isSuccessful){
+            Toast.makeText(this, "Usuario logeado correctamente", Toast.LENGTH_SHORT).show()
+            val intentHome = Intent(this, HomeActivity::class.java)
+            startActivity(intentHome)
 
         }else{
             Toast.makeText(this, "Error al ingresar, verifica los datos", Toast.LENGTH_SHORT).show()

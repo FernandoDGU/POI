@@ -9,15 +9,18 @@ import com.fcfm.poi_proyect_003.Clases.Usuarios
 import com.fcfm.poi_proyect_003.Fragment.FragmentoGrupo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
+import android.app.Activity as A
 
-class ChatGrupoActivity: AppCompatActivity() {
-    private val Home = HomeActivity()
+class ChatGrupoActivity: AppCompatActivity(){
     private val database = FirebaseDatabase.getInstance()
     private val chatRef = database.getReference("SalaChat")
     private val Ref = database.getReference()
+    private lateinit var auth: FirebaseAuth
 
     private val listaMensajes  = mutableListOf<ChatGrupal>()
     private val adaptadorMensaje = chatGrupalAdapter(listaMensajes)
@@ -37,8 +40,10 @@ class ChatGrupoActivity: AppCompatActivity() {
         //Checar esto para obtener el correo del usuario logeado
 
         //Checar porque se ve de ese tamaño los mensajes
+        var intent = getIntent()
+        var user = Firebase.auth.currentUser
         CarreraUsuario = "LMAD"
-        CorreoUsuario = (Home.getCorreo())
+        CorreoUsuario = user.email
 
 
         Ref.child("Usuarios").orderByChild("correo").equalTo(CorreoUsuario).addValueEventListener(object :ValueEventListener{

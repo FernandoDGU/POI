@@ -1,5 +1,6 @@
 package com.fcfm.poi_proyect_003
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
 
-class HomeActivity : AppCompatActivity(){
+class HomeActivity() : AppCompatActivity(){
     private val database = FirebaseDatabase.getInstance()
     private val chatRef = database.getReference()
     private lateinit var auth: FirebaseAuth
@@ -23,6 +24,7 @@ class HomeActivity : AppCompatActivity(){
     var nombre = ""
     var carrera = ""
     var i = "0"
+    var id = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +63,11 @@ class HomeActivity : AppCompatActivity(){
 
         })
         btnChatGrupal.setOnClickListener {
-            startActivity(Intent(this, ChatGrupoActivity::class.java))
+
+            val intentChatG = Intent(this, ChatGrupoActivity::class.java)
+            intent.putExtra("Correo01", user.email)
+            this.startActivity(intentChatG)
+            //startActivity(Intent(this, ChatGrupoActivity::class.java))
 
         }
         btnContactos.setOnClickListener {
@@ -79,5 +85,10 @@ class HomeActivity : AppCompatActivity(){
     @JvmName("getCorreo1")
     fun getCorreo(): String {
         return correo
+    }
+
+    @JvmName("getId1")
+    fun getId(): String {
+        return id
     }
 }

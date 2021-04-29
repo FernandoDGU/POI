@@ -122,6 +122,7 @@ class  RegistroActivity : AppCompatActivity() {
                     hashMap.put("contrasena",password)
                     hashMap.put("carrera",carreraUsuario)
                     hashMap.put("estado",estado)
+                    hashMap.put("correo",email)
 
                     databaseReference.setValue(hashMap).addOnCompleteListener(this){
                         if (it.isSuccessful){

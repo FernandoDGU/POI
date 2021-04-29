@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#191919">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChatGrupal"
@@ -21,12 +22,12 @@
 
     <Button
         android:id="@+id/btnEnviarMensaje"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="52dp"
+        android:layout_height="41dp"
         android:layout_marginEnd="16dp"
-        android:hint="Enviar"
+        android:background="@drawable/ic_baseline_send_24"
         android:padding="7dp"
-        app:backgroundTint="#FFFFFF"
+        app:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
@@ -34,13 +35,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_width="333dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf = "parent"
+        app:layout_constraintBottom_toBottomOf="parent"
 
 
         tools:ignore="MissingConstraints">
@@ -50,29 +48,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
+            android:backgroundTint="@color/white"
             android:ems="14"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:hint="Escribe un mensaje..."
+            android:textColor="#FFFFFF"
+            android:textColorHint="#DADADA"
 
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/txtNombreGrupo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
-        android:layout_marginTop="8dp"
+        android:background="@color/blue"
+        android:gravity="center"
         android:hint="Text Chat Grupal"
+        android:paddingTop="5sp"
+        android:paddingBottom="5sp"
+        android:textColorHint="#F1F1F1"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
-
+        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

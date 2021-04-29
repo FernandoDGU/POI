@@ -17,9 +17,9 @@
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/item_izq_background"
+            android:padding="15dp"
             android:textSize="16sp"
             tools:text="farhan" />
 

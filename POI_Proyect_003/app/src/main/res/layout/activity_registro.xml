@@ -1,71 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="#191919">
 
     <EditText
         android:id="@+id/txtRegistroCorreo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Correo"
         android:inputType="textEmailSubject"
+        android:textColorHint="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@id/txtRegistroNombre"
         app:layout_constraintEnd_toEndOf="@+id/txtRegistroNombre"
         app:layout_constraintStart_toStartOf="@+id/txtRegistroNombre"
 
-        />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/txtRegistroNombre"
-        android:layout_width="wrap_content"
+        android:layout_width="285dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Nombre"
         android:inputType="textPersonName"
+        android:textColorHint="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
-        >
-    </EditText>
+        tools:ignore="MissingConstraints"></EditText>
 
     <EditText
         android:id="@+id/txtRegistroPass"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints"
         android:layout_marginTop="17dp"
+        android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Contraseña"
         android:inputType="textPassword"
+        android:textColorHint="#AAAAAA"
         app:layout_constraintEnd_toEndOf="@+id/txtRegistroNombre"
         app:layout_constraintStart_toStartOf="@+id/txtRegistroNombre"
         app:layout_constraintTop_toBottomOf="@+id/txtRegistroNombre"
-        >
-    </EditText>
+        tools:ignore="MissingConstraints"></EditText>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".5"
-        />
+        app:layout_constraintGuide_percent=".5" />
 
     <Button
         android:id="@+id/btnAceptar"
-        android:layout_width="0dp"
+        android:layout_width="136dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:hint="Registrar"
-        app:backgroundTint="#FFFFFF"
+        android:textColorHint="#C8C8C8"
+        app:backgroundTint="#294ED3"
         app:layout_constraintEnd_toEndOf="@+id/txtRegistroPass"
         app:layout_constraintStart_toStartOf="@+id/txtRegistroPass"
         app:layout_constraintTop_toBottomOf="@+id/txtRegistroPass"

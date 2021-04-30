@@ -20,42 +20,45 @@
         app:layout_constraintVertical_bias="0.0"
         tools:listitem="@layout/mensaje" />
 
-    <Button
-        android:id="@+id/btnEnviarMensaje"
-        android:layout_width="52dp"
-        android:layout_height="41dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/ic_baseline_send_24"
-        android:padding="7dp"
-        app:backgroundTint="@color/blue"
-        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
-        tools:ignore="MissingConstraints" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
-        android:layout_width="333dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
         app:layout_constraintBottom_toBottomOf="parent"
 
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
 
         <EditText
             android:id="@+id/txtEnviarMensaje"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
             android:backgroundTint="@color/white"
             android:ems="14"
             android:hint="Escribe un mensaje..."
             android:textColor="#FFFFFF"
-            android:textColorHint="#DADADA"
 
+            android:textColorHint="#DADADA"
+            app:layout_constraintBottom_toBottomOf="@+id/btnEnviarMensaje"
+            app:layout_constraintEnd_toStartOf="@+id/btnEnviarMensaje"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnEnviarMensaje" />
+
+        <Button
+            android:id="@+id/btnEnviarMensaje"
+            android:layout_width="52dp"
+            android:layout_height="41dp"
+            android:background="@drawable/ic_baseline_send_24"
+            android:padding="7dp"
+            app:backgroundTint="@color/blue"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.461"
+            tools:ignore="MissingConstraints" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView

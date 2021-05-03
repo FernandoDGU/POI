@@ -4,8 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.fcfm.poi_proyect_003.Clases.Usuarios
+import com.fcfm.poi_proyect_003.Fragment.FragmentoChat
 import com.fcfm.poi_proyect_003.Fragment.FragmentoGrupo
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -62,6 +65,30 @@ class HomeActivity() : AppCompatActivity(){
             }
 
         })
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                when (tab?.position){
+                    0 -> changeFragment(FragmentoGrupo(), "fragmentoGrupo")
+                    1 -> {
+                        changeFragment(FragmentoChat(), "fragmentoChat")
+                    }
+                    else -> changeFragment(FragmentoChat(), "FragmentoChat")
+                }
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+
+        })
+
+        tabLayout.selectTab(tabLayout.getTabAt(0))
+        changeFragment(FragmentoChat(), "fragmentoChat")
+
         btnChatGrupal.setOnClickListener {
 
             val intentChatG = Intent(this, ChatGrupoActivity::class.java)
@@ -90,5 +117,16 @@ class HomeActivity() : AppCompatActivity(){
     @JvmName("getId1")
     fun getId(): String {
         return id
+    }
+
+    private fun changeFragment(fragment: Fragment, tag: String){
+        val currentFragment = supportFragmentManager.findFragmentByTag(tag)
+
+        //Si no existe
+        if(currentFragment == null || currentFragment.isVisible.not()){
+            //Se cambia el fragmento
+            supportFragmentManager.beginTransaction().replace(R.id.framentContainer, fragment, tag)
+                    .commit()
+        }
     }
 }

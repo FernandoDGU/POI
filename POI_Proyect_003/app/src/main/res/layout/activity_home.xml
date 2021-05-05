@@ -43,17 +43,24 @@
             android:layout_marginBottom="78dp"
             android:text="Chat Grupal"
             app:backgroundTint="@color/blue"
-            tools:ignore="MissingConstraints" /><![CDATA[
+            tools:ignore="MissingConstraints" />
 
-        />
-    ]]>
+        <Button
+            android:id="@+id/buttonTareas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+
     </RelativeLayout>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/blue"
+        app:tabGravity="fill"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -94,7 +101,6 @@
             android:icon="@drawable/ic_baseline_more_horiz_24" />
 
     </com.google.android.material.tabs.TabLayout>
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"

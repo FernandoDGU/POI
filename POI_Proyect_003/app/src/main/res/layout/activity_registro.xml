@@ -11,16 +11,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:textColor="@color/white"
         android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Correo"
         android:inputType="textEmailSubject"
+        android:textColor="#AAAAAA"
         android:textColorHint="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@id/txtRegistroNombre"
         app:layout_constraintEnd_toEndOf="@+id/txtRegistroNombre"
-        app:layout_constraintStart_toStartOf="@+id/txtRegistroNombre"
 
+        app:layout_constraintStart_toStartOf="@+id/txtRegistroNombre"
         tools:ignore="MissingConstraints" />
 
     <EditText
@@ -31,13 +31,13 @@
         android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Nombre"
-        android:textColor="@color/white"
         android:inputType="textPersonName"
+        android:textColor="#AAAAAA"
         android:textColorHint="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
 
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"></EditText>
 
     <EditText
@@ -48,8 +48,8 @@
         android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Contraseña"
-        android:textColor="@color/white"
         android:inputType="textPassword"
+        android:textColor="#AAAAAA"
         android:textColorHint="#AAAAAA"
         app:layout_constraintEnd_toEndOf="@+id/txtRegistroNombre"
         app:layout_constraintStart_toStartOf="@+id/txtRegistroNombre"

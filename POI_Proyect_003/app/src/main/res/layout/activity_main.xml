@@ -12,18 +12,18 @@
         android:id="@+id/txtCorreo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Correo"
         android:inputType="textPersonName"
-        android:textColorHint="#FDFDFD"
-        android:textColor="@color/white"
+        android:textColor="#AAAAAA"
+        android:textColorHint="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@+id/txtPass"
         app:layout_constraintEnd_toEndOf="@+id/txtPass"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtPass"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="246dp" />
+        tools:ignore="MissingConstraints" />
 
 
     <EditText
@@ -34,9 +34,9 @@
         android:backgroundTint="@color/white"
         android:ems="9"
         android:hint="Contraseña"
-        android:textColor="@color/white"
         android:inputType="textPassword"
-        android:textColorHint="#FFFFFF"
+        android:textColor="#AAAAAA"
+        android:textColorHint="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

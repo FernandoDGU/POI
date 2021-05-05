@@ -1,6 +1,5 @@
 package com.fcfm.poi_proyect_003.Adaptadores
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -11,10 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fcfm.poi_proyect_003.ChatActivity
 import com.fcfm.poi_proyect_003.Clases.Usuarios
 import com.fcfm.poi_proyect_003.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.fcfm.poi_proyect_003.UsuariosActivity
 
-class UsuariosAdapter(private val context: Context, private val userList:ArrayList<Usuarios>) :
+class UsuariosAdapter(private val context: UsuariosActivity, private val userList:ArrayList<Usuarios>) :
     RecyclerView.Adapter<UsuariosAdapter.ViewHolder>() {
 
 
@@ -35,6 +33,7 @@ class UsuariosAdapter(private val context: Context, private val userList:ArrayLi
        // holder.txtTemp.text = user.estado
         holder.layoutUser.setOnClickListener {
             val intent = Intent(context, ChatActivity::class.java)
+            //val intent = Intent(context, ChatActivity::class.java)
             intent.putExtra("userName", user.nombre)
             intent.putExtra("idAlmuno", user.idAlumno)
             context.startActivity(intent)

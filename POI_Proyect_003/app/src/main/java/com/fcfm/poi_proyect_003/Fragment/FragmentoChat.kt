@@ -106,7 +106,7 @@ class FragmentoChat: Fragment() {
                     val usuariosAdapter = UsuariosAdapter(contexto, userList, object : ContactoClick{
                         override fun detalle(Usuario: Usuarios) {
                             val intent = Intent(this@FragmentoChat.context, ChatActivity::class.java)
-                            //intent.putExtra("userName", Usuario.nombre)
+                            intent.putExtra("userName", Usuario.nombre)
                             intent.putExtra("idAlmuno", Usuario.idAlumno)
                             intent.putExtra("estado", Usuario.estado)
                             startActivity(intent)

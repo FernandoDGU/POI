@@ -38,7 +38,7 @@ class UsuariosAdapter(private val context: UsuariosActivity, private val userLis
         val user = userList[position]
        // val firebase: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
         holder.txtUserName.text = user.nombre
-
+        holder.txtEstado.text = user.estado
        //holder.txtTemp.text = user.estado
         holder.layoutUser.setOnClickListener {
             contactoClick.detalle(user)
@@ -50,7 +50,7 @@ class UsuariosAdapter(private val context: UsuariosActivity, private val userLis
     }
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
         val txtUserName: TextView = view.findViewById(R.id.userName)
-        //val txtTemp:TextView = view.findViewById(R.id.temp)
+        val txtEstado:TextView = view.findViewById(R.id.estado)
         val layoutUser:LinearLayout = view.findViewById(R.id.layoutUser)
     }
 }

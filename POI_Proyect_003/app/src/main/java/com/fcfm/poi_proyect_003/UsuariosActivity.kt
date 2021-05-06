@@ -51,9 +51,9 @@ class UsuariosActivity : AppCompatActivity() {
                        // userNameContactos.text = user!!.nombre
                     }
                 }
-                val usuariosAdapter = UsuariosAdapter(this@UsuariosActivity, userList)
+                //val usuariosAdapter = UsuariosAdapter(this@UsuariosActivity, userList)
 
-                userRecyclerView.adapter = usuariosAdapter
+                //userRecyclerView.adapter = usuariosAdapter
             }
 
         })

@@ -66,8 +66,8 @@
                 android:inputType="text"
                 android:padding="12dp"
                 android:backgroundTint="@color/white"
-                android:textColor="#464646"
-                android:textColorHint="#BABABA" />
+                android:textColor="#FFFFFF"
+                android:textColorHint="#FFFFFF" />
 
             <ImageButton
                 android:id="@+id/btnSendMessage"

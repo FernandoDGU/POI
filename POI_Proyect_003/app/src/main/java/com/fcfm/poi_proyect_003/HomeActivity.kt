@@ -3,11 +3,14 @@ package com.fcfm.poi_proyect_003
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.fcfm.poi_proyect_003.Clases.Usuarios
 import com.fcfm.poi_proyect_003.Fragment.FragmentoChat
+import com.fcfm.poi_proyect_003.Fragment.FragmentoConfiguracion
 import com.fcfm.poi_proyect_003.Fragment.FragmentoGrupo
+import com.fcfm.poi_proyect_003.Fragment.FragmentoTareas
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -33,7 +36,7 @@ class HomeActivity() : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        title = "FORO"
+        //title = "FORO"
         var user = Firebase.auth.currentUser
         user?.let {
             val name = user.displayName
@@ -66,14 +69,21 @@ class HomeActivity() : AppCompatActivity(){
 
         })
 
+        //Tabs para los fragmentos
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position){
-                    0 -> changeFragment(FragmentoGrupo(), "fragmentoGrupo")
+                    0 -> changeFragment(FragmentoChat(), "fragmentoChat")
                     1 -> {
-                        changeFragment(FragmentoChat(), "fragmentoChat")
+                        changeFragment(FragmentoGrupo(), "fragmentoGrupo")
                     }
-                    else -> changeFragment(FragmentoChat(), "FragmentoChat")
+                    2 -> {
+                        changeFragment(FragmentoTareas(), "fragmentoTareas")
+                    }
+                    3 -> {
+                        changeFragment(FragmentoConfiguracion(), "fragmentoConfig")
+                    }
+                    else -> changeFragment(FragmentoGrupo(), "fragmentoGrupo")
                 }
             }
 
@@ -86,22 +96,22 @@ class HomeActivity() : AppCompatActivity(){
 
         })
 
+        //El que se abre por defecto
         tabLayout.selectTab(tabLayout.getTabAt(0))
         changeFragment(FragmentoChat(), "fragmentoChat")
 
-        btnChatGrupal.setOnClickListener {
+        /*btnChatGrupal.setOnClickListener {
 
             val intentChatG = Intent(this, ChatGrupoActivity::class.java)
             intent.putExtra("Correo01", user.email)
             this.startActivity(intentChatG)
             //startActivity(Intent(this, ChatGrupoActivity::class.java))
 
-        }
-        btnContactos.setOnClickListener {
-            startActivity(Intent(this, UsuariosActivity::class.java))
+        }*/
+        //btnContactos.setOnClickListener {
+          //  startActivity(Intent(this, ChatGrupoActivity::class.java))
 
-        }
-
+        //}
 
     }
     @JvmName("getCarrera1")

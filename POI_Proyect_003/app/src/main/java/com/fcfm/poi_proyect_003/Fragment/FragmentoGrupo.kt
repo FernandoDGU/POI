@@ -1,5 +1,6 @@
 package com.fcfm.poi_proyect_003.Fragment
 
+import android.content.Intent
 import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.fcfm.poi_proyect_003.Adaptadores.chatGrupalAdapter
+import com.fcfm.poi_proyect_003.AltaGruposActivity
+import com.fcfm.poi_proyect_003.ChatGrupoActivity
 import com.fcfm.poi_proyect_003.Clases.ChatGrupal
 import com.fcfm.poi_proyect_003.Clases.Usuarios
 import com.fcfm.poi_proyect_003.HomeActivity
@@ -17,9 +20,10 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
 import kotlinx.android.synthetic.main.fragment_chat_grupal.view.*
+import kotlinx.android.synthetic.main.group_activity.view.*
 
 class FragmentoGrupo: Fragment() {
-    private val database = FirebaseDatabase.getInstance()
+    /*private val database = FirebaseDatabase.getInstance()
     private val chatRef = database.getReference("SalaChat")
     private val Ref = database.getReference()
     private lateinit var auth: FirebaseAuth
@@ -97,12 +101,34 @@ class FragmentoGrupo: Fragment() {
                 }
                 if(listaMensajes.size>0){
                     adaptadorMensaje.notifyDataSetChanged()
-                    rvChatGrupal.smoothScrollToPosition(listaMensajes.size-1)
+                    rvChatGrupal.smoothScrollToPosition(listaMensajes.size) // -1
                 }
             }
 
         })
         adaptadorMensaje.notifyDataSetChanged()
+    }*/
+
+    private lateinit var rootView: View
+
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        rootView = inflater.inflate(R.layout.group_activity, container, false)
+
+        rootView.btnCrearGrupo.setOnClickListener {
+            val intent = Intent(this@FragmentoGrupo.context, AltaGruposActivity::class.java)
+            startActivity(intent)
+        }
+
+        rootView.btnPreba.setOnClickListener {
+            val intent = Intent(this@FragmentoGrupo.context, ChatGrupoActivity::class.java)
+            startActivity(intent)
+        }
+
+        return rootView
     }
 
-    }
+}

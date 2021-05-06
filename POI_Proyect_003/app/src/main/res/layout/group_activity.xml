@@ -32,7 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnCrearGrupo"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -43,6 +43,19 @@
             app:iconTint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/btnPreba"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_baseline_group_add_24"
+            android:text="Prueba"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/white"
+            app:iconTint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnCrearGrupo"
             app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -62,7 +75,7 @@
             android:background="#191919"
             android:gravity="center"
             android:numColumns="2"
-            app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -70,51 +83,6 @@
 
         </GridView>
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/blue"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:tabGravity="fill"
-            app:tabIconTint="@color/white"
-            app:tabIndicatorColor="#FFFFFF"
-            app:tabTextColor="#FFFFFF"
-            tools:ignore="MissingConstraints">
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabNotification"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_baseline_notifications_24" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabChat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_baseline_message_24" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_baseline_group_24" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabWork"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_baseline_backpack_24" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/tabMore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_baseline_more_horiz_24" />
-
-        </com.google.android.material.tabs.TabLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

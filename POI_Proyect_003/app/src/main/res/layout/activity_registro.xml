@@ -63,17 +63,30 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".5" />
 
+    <Spinner
+        android:id="@+id/spinner2"
+        style="@style/Widget.AppCompat.Spinner"
+        android:layout_width="0dp"
+
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:background="#E4E4E4"
+        android:entries="@array/Spinner_Carreras"
+        app:layout_constraintEnd_toEndOf="@+id/txtRegistroPass"
+        app:layout_constraintStart_toStartOf="@+id/txtRegistroPass"
+        app:layout_constraintTop_toBottomOf="@+id/txtRegistroPass" />
+
     <Button
         android:id="@+id/btnAceptar"
         android:layout_width="136dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="16dp"
         android:hint="Registrar"
         android:textColorHint="#C8C8C8"
         app:backgroundTint="#294ED3"
-        app:layout_constraintEnd_toEndOf="@+id/txtRegistroPass"
-        app:layout_constraintStart_toStartOf="@+id/txtRegistroPass"
-        app:layout_constraintTop_toBottomOf="@+id/txtRegistroPass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner2"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">POI_Proyect_003</string>
-    <string-array name="Spinner_tareas">
-        <item>Asignado </item>
-        <item>Completado</item>
+    <string-array name="Spinner_Carreras">
+        <item>LMAD </item>
+        <item>LCC</item>
+        <item>FISICA</item>
 
     </string-array>
 </resources>

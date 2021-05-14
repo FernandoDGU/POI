@@ -72,8 +72,12 @@ package com.fcfm.poi_proyect_003
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.fcfm.poi_proyect_003.Clases.Usuarios
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -86,12 +90,24 @@ class  RegistroActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
-    var carrera: String = "LMAD"
+    var carrera: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
 
         auth = FirebaseAuth.getInstance()
+
+        var spinnerRef = findViewById(R.id.carreraRegistro) as Spinner
+        spinnerRef.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                //carrera = spinnerRef.
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                TODO("Not yet implemented")
+            }
+
+        }
 
         btnAceptar.setOnClickListener {
             val userName = txtRegistroNombre.text.toString()

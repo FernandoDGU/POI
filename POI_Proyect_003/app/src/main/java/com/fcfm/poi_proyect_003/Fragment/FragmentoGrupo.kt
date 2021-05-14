@@ -1,25 +1,20 @@
 package com.fcfm.poi_proyect_003.Fragment
 
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.fcfm.poi_proyect_003.Adaptadores.chatGrupalAdapter
+import com.fcfm.poi_proyect_003.Adaptadores.ChatIndividualAdapter
 import com.fcfm.poi_proyect_003.AltaGruposActivity
 import com.fcfm.poi_proyect_003.ChatGrupoActivity
-import com.fcfm.poi_proyect_003.Clases.ChatGrupal
-import com.fcfm.poi_proyect_003.Clases.Usuarios
-import com.fcfm.poi_proyect_003.HomeActivity
+import com.fcfm.poi_proyect_003.Clases.Grupos
 import com.fcfm.poi_proyect_003.R
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
-import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.fragment_chat_grupal.*
-import kotlinx.android.synthetic.main.fragment_chat_grupal.view.*
+import kotlinx.android.synthetic.main.activity_chat2.*
 import kotlinx.android.synthetic.main.group_activity.view.*
 
 class FragmentoGrupo: Fragment() {
@@ -129,6 +124,32 @@ class FragmentoGrupo: Fragment() {
         }
 
         return rootView
+    }
+
+    fun mostrarGrupos(){
+        var groupList = ArrayList<Grupos>()
+        val databaseReference:DatabaseReference =
+                FirebaseDatabase.getInstance().getReference("Grupos")
+
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(dataSnapShot:DataSnapshot in snapshot.children){
+                    val grupo = dataSnapShot.getValue(Grupos::class.java)
+                    if(true){
+                        if (grupo != null) {
+                            groupList.add(grupo)
+                        }
+                    }
+                }
+                //val groupAdapter = Adapter(this, R.layout.group_list,groupList)
+                //chatRecyclerView.adapter = chatAdapter
+            }
+        })
+
     }
 
 }

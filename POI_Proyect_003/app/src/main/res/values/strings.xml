@@ -3,7 +3,10 @@
     <string-array name="Spinner_Carreras">
         <item>LMAD </item>
         <item>LCC</item>
-        <item>FISICA</item>
+        <item>LF</item>
+        <item>LSTI</item>
+        <item>LA</item>
+        <item>LM</item>
 
     </string-array>
 </resources>

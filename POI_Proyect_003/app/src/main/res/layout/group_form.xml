@@ -110,7 +110,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
                     <EditText
-                        android:id="@+id/editTextTextPersonName2"
+                        android:id="@+id/etNombreGrupo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -129,7 +129,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/editTextTextMultiLine2"
+                        android:id="@+id/etDescGrupo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
@@ -143,17 +143,17 @@
                         android:inputType="textMultiLine"
                         android:textColor="#FFFFFF"
                         android:textColorHint="#FFFFFF"
-                        app:layout_constraintBottom_toTopOf="@+id/button5"
+                        app:layout_constraintBottom_toTopOf="@+id/btnAgregarGrupo"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.5"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
+                        app:layout_constraintTop_toBottomOf="@+id/etNombreGrupo" />
 
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/btnAgregarGrupo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Crear grupo"
+                        android:text="Crear subgrupo"
                         android:textAllCaps="false"
                         app:backgroundTint="@color/blue"
                         app:layout_constraintBottom_toBottomOf="parent"

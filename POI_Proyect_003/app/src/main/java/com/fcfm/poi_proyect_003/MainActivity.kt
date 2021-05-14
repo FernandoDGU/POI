@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             if(firebaseUser!=null){
                 val intentHome = Intent(this, HomeActivity::class.java)
                 startActivity(intentHome)
-                Toast.makeText(this, "Usuario logeado correctamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
     private fun Login(correo:String, pass:String){
         auth.signInWithEmailAndPassword(correo, pass).addOnCompleteListener(this){
             task ->if(task.isSuccessful){
-            Toast.makeText(this, "Usuario logeado correctamente", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show()
             val intentHome = Intent(this, HomeActivity::class.java)
             startActivity(intentHome)
 

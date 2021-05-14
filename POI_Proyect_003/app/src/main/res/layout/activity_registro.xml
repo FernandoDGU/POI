@@ -64,7 +64,7 @@
         app:layout_constraintGuide_percent=".5" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/carreraRegistro"
         style="@style/Widget.AppCompat.Spinner"
         android:layout_width="0dp"
 
@@ -73,6 +73,7 @@
         android:background="#E4E4E4"
         android:entries="@array/Spinner_Carreras"
         app:layout_constraintEnd_toEndOf="@+id/txtRegistroPass"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/txtRegistroPass"
         app:layout_constraintTop_toBottomOf="@+id/txtRegistroPass" />
 
@@ -86,7 +87,7 @@
         app:backgroundTint="#294ED3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2"
+        app:layout_constraintTop_toBottomOf="@+id/carreraRegistro"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

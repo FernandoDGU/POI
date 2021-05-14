@@ -98,7 +98,7 @@ class FragmentoChat: Fragment() {
                         if(user!!.idAlumno != firebase.uid){
                             userList.add(user)
                         }else{
-
+                            //Checar esto para validacion
                         }
                         //checarlo
 
@@ -108,10 +108,11 @@ class FragmentoChat: Fragment() {
                             val intent = Intent(this@FragmentoChat.context, ChatActivity::class.java)
                             intent.putExtra("userName", Usuario.nombre)
                             intent.putExtra("idAlmuno", Usuario.idAlumno)
-                            intent.putExtra("estado", Usuario.estado)
+                            //intent.putExtra("estado", Usuario.estado)
                             startActivity(intent)
                         }
                     })
+                    //Checar esto porque da error
                     userRecyclerView.adapter = usuariosAdapter
 
                 }

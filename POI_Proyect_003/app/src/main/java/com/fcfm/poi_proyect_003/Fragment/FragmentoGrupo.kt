@@ -12,6 +12,7 @@ import com.fcfm.poi_proyect_003.Adaptadores.ChatIndividualAdapter
 import com.fcfm.poi_proyect_003.AltaGruposActivity
 import com.fcfm.poi_proyect_003.ChatGrupoActivity
 import com.fcfm.poi_proyect_003.Clases.Grupos
+import com.fcfm.poi_proyect_003.HomeActivity
 import com.fcfm.poi_proyect_003.R
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_chat2.*
@@ -120,6 +121,7 @@ class FragmentoGrupo: Fragment() {
 
         rootView.btnPreba.setOnClickListener {
             val intent = Intent(this@FragmentoGrupo.context, ChatGrupoActivity::class.java)
+            intent.putExtra("Carrera", (getActivity() as HomeActivity).getCarrera())
             startActivity(intent)
         }
 

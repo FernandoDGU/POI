@@ -74,6 +74,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -98,13 +99,19 @@ class  RegistroActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
 
         var spinnerRef = findViewById(R.id.carreraRegistro) as Spinner
+        val carreras = arrayOf("LMAD", "LCC", "LA", "LF", "LM", "LSTI")
+
+        spinnerRef.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, carreras)
+
+
+
         spinnerRef.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                //carrera = spinnerRef.
+                carrera = carreras.get(0)
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                TODO("Not yet implemented")
+                carrera = carreras.get(position)
             }
 
         }
@@ -146,8 +153,9 @@ class  RegistroActivity : AppCompatActivity() {
                             txtRegistroNombre.setText("")
                             txtRegistroCorreo.setText("")
                             txtRegistroPass.setText("")
+                            //REDIRECCIONA A OTRA PANTALLA
                             val intent = Intent(this@RegistroActivity,
-                                HomeActivity::class.java)
+                                MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         }

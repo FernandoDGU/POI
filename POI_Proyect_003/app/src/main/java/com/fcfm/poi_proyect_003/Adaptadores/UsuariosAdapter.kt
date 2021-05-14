@@ -39,7 +39,6 @@ class UsuariosAdapter(private val context: UsuariosActivity, private val userLis
        // val firebase: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
         holder.txtUserName.text = user.nombre
         holder.txtEstado.text = user.estado
-       //holder.txtTemp.text = user.estado
         holder.layoutUser.setOnClickListener {
             contactoClick.detalle(user)
             //val intent = Intent(context, ChatActivity::class.java)

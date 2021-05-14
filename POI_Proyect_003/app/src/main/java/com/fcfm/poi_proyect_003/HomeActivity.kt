@@ -22,12 +22,14 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity() : AppCompatActivity(){
+
     private val database = FirebaseDatabase.getInstance()
     private val chatRef = database.getReference()
     private lateinit var auth: FirebaseAuth
 
     var correo  = ""
     var nombre = ""
+
     var carrera = ""
     var i = "0"
     var id = ""
@@ -54,7 +56,7 @@ class HomeActivity() : AppCompatActivity(){
 
                     val key = snap.key.toString()
                     if(i == "0"){
-                        chatRef.child("Usuarios").child(key).child("estado").setValue("online")
+                        chatRef.child("Usuarios").child(key).child("estado").setValue("Conectado")
                         i = "1"
                     }
                     val usuario = snap.getValue(Usuarios::class.java) as Usuarios

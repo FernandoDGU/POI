@@ -2,6 +2,7 @@ package com.fcfm.poi_proyect_003
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.fcfm.poi_proyect_003.Adaptadores.chatGrupalAdapter
 import com.fcfm.poi_proyect_003.Clases.ChatGrupal
@@ -14,6 +15,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
+import kotlin.math.log
 import android.app.Activity as A
 
 class ChatGrupoActivity: AppCompatActivity(){
@@ -27,7 +29,8 @@ class ChatGrupoActivity: AppCompatActivity(){
 
     var CorreoUsuario = ""
     var nombre = ""
-    var CarreraUsuario = ""
+    var CarreraUsuario : String = ""
+    var carrera = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,12 +42,13 @@ class ChatGrupoActivity: AppCompatActivity(){
         reference = FirebaseDatabase.getInstance().getReference("Usuarios")
         //Checar esto para obtener el correo del usuario logeado
 
+
+
         //Checar porque se ve de ese tamaño los mensajes
         var intent = getIntent()
         var user = Firebase.auth.currentUser
-        CarreraUsuario = "LMAD"
         CorreoUsuario = user.email
-
+        CarreraUsuario = intent.getStringExtra("Carrera").toString()
 
         Ref.child("Usuarios").orderByChild("correo").equalTo(CorreoUsuario).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -57,6 +61,7 @@ class ChatGrupoActivity: AppCompatActivity(){
 
             }
         })
+
 
         btnEnviarMensaje.setOnClickListener {
             if(txtEnviarMensaje.text.toString() !== ""){
@@ -73,7 +78,7 @@ class ChatGrupoActivity: AppCompatActivity(){
     }
 
     private fun enviarMensaje(mensaje: ChatGrupal){
-        val child = chatRef.child("LMAD").push()
+        val child = chatRef.child(CarreraUsuario).push()
         mensaje.id = child.key ?:""
         child.setValue(mensaje)
     }

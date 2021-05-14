@@ -25,23 +25,25 @@ class MainActivity : AppCompatActivity() {
         title = "Bienvenido"
         //Obtener los datos del usuario
         auth = FirebaseAuth.getInstance()
-        if(auth.currentUser!=null){
+        /*if(auth.currentUser!=null){
             firebaseUser = auth.currentUser!!
             if(firebaseUser!=null){
-                val intentHome = Intent(this, HomeActivity::class.java)
-                startActivity(intentHome)
-                Toast.makeText(this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show()
+                //val intentHome = Intent(this, HomeActivity::class.java)
+                //startActivity(intentHome)
+                //Toast.makeText(this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
 
 
         //Boton para abrir el registro de usuarios
         btnRegistro.setOnClickListener {
             startActivity(Intent(this, RegistroActivity::class.java))
+            finish()
         }
 
         //Botono para confirmar login e ir a home
         btnIniciarSesion.setOnClickListener {
+
             val correoUsuario = txtCorreo.text.toString()
             val passUsuario = txtPass.text.toString()
             Login(correoUsuario, passUsuario)
@@ -54,6 +56,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Sesión iniciada correctamente", Toast.LENGTH_SHORT).show()
             val intentHome = Intent(this, HomeActivity::class.java)
             startActivity(intentHome)
+            finish()
 
         }else{
             Toast.makeText(this, "Error al ingresar, verifica los datos", Toast.LENGTH_SHORT).show()

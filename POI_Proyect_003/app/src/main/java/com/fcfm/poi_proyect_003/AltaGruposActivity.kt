@@ -125,8 +125,11 @@ class AltaGruposActivity: AppCompatActivity() {
 
     private fun crearGrupo(subGrupos: SubGrupos, usuarios: Usuarios){
         val mensajeFirebase = subRef.push()
+        val Hello: String = "Hello"
         subGrupos.id = mensajeFirebase.key ?: "" //Puede ser nulo
+        subGrupos.imagen = Hello.toString()
         mensajeFirebase.setValue(subGrupos)
+
         val child = subRef.child(subGrupos.id).
         child("Participantes").push()
 

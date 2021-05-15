@@ -2,10 +2,13 @@ package com.fcfm.poi_proyect_003.Fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.fcfm.poi_proyect_003.Adaptadores.SubGruposClickListener
+import com.fcfm.poi_proyect_003.Adaptadores.subGruposAdapter
 import com.fcfm.poi_proyect_003.AltaGruposActivity
 import com.fcfm.poi_proyect_003.ChatGrupoActivity
 import com.fcfm.poi_proyect_003.Clases.SubGrupos
@@ -13,6 +16,8 @@ import com.fcfm.poi_proyect_003.HomeActivity
 import com.fcfm.poi_proyect_003.R
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.group_activity.view.*
+import java.lang.Exception
+import java.sql.Ref
 
 class FragmentoGrupo: Fragment() {
     /*private val database = FirebaseDatabase.getInstance()
@@ -101,7 +106,18 @@ class FragmentoGrupo: Fragment() {
         adaptadorMensaje.notifyDataSetChanged()
     }*/
 
+
+    private val database = FirebaseDatabase.getInstance()
+    private val subgruposRef = database.getReference("SubGrupos")
+    private val Ref = database.getReference()
+    private val SubGrupos = mutableListOf<SubGrupos>()
+
+    private lateinit var adaptadorSubGrupos: subGruposAdapter
+    var idGrupo = "1"
+    var grupoNombre = ""
+    var nombre = ""
     var CarreraUsuario = ""
+    var CorreoUsuario = ""
 
     private lateinit var rootView: View
 
@@ -115,12 +131,25 @@ class FragmentoGrupo: Fragment() {
 
         //Modificaciones
         CarreraUsuario = (getActivity() as HomeActivity).getCarrera()
+        CorreoUsuario = (getActivity() as HomeActivity).getCorreo()
+
+
+        adaptadorSubGrupos = subGruposAdapter(this, SubGrupos, object : SubGruposClickListener{
+
+            override fun subGrupoListener(grupos: SubGrupos) {
+                idGrupo = grupos.id
+                grupoNombre = grupos.nombreGrupo
+
+            }
+        })
 
         rootView.btnCrearGrupo.setOnClickListener {
             val intent = Intent(this@FragmentoGrupo.context, AltaGruposActivity::class.java)
             intent.putExtra("carrera", CarreraUsuario)
             startActivity(intent)
         }
+
+
 
         //Ir al grupo principal
         rootView.btnPreba.setOnClickListener {
@@ -129,6 +158,8 @@ class FragmentoGrupo: Fragment() {
             startActivity(intent)
         }
 
+       rootView.rvSubGrupos.adapter = adaptadorSubGrupos
+        getSubGrupos()
         return rootView
     }
 
@@ -147,7 +178,7 @@ class FragmentoGrupo: Fragment() {
                     val grupo = dataSnapShot.getValue(SubGrupos::class.java)
                     if(true){
                         if (grupo != null) {
-                            groupList.add(grupo)
+                            //groupList.add(grupo)
                         }
                     }
                 }
@@ -158,4 +189,48 @@ class FragmentoGrupo: Fragment() {
 
     }
 
+
+    fun getSubGrupos(){
+        try {
+            subgruposRef.addValueEventListener(object : ValueEventListener{
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    SubGrupos.clear()
+                    var correoPersona = ""
+                    for (snap in snapshot.children){
+                        var childKey = snap.key.toString()
+                        var Personas = snap.child("Participantes").children
+                        for (persona in Personas){
+                            correoPersona = persona.child("correo").value.toString()
+                            var nombrePersona = persona.child("nombre").value.toString()
+                            if(correoPersona == CorreoUsuario){
+                                var carrera = snap.child("carrera").value.toString()
+                                var id = snap.child("id").value.toString()
+                                var nombre = snap.child("nombreGrupo").value.toString()
+
+                                if(carrera == CarreraUsuario){
+                                    SubGrupos.add(SubGrupos(id, carrera, nombre))
+                                }
+                            }
+                        }
+
+                        if(SubGrupos.size > 0 ){
+                            adaptadorSubGrupos.notifyDataSetChanged()
+                        }
+                    }
+                }
+
+
+
+
+            })
+            adaptadorSubGrupos.notifyDataSetChanged()
+        }catch (e: Exception){
+            Log.d("TAG", e.toString())
+        }
+    }
 }

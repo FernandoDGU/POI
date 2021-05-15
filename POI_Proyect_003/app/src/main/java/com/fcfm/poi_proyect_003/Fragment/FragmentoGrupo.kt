@@ -5,17 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.fcfm.poi_proyect_003.Adaptadores.ChatIndividualAdapter
 import com.fcfm.poi_proyect_003.AltaGruposActivity
 import com.fcfm.poi_proyect_003.ChatGrupoActivity
-import com.fcfm.poi_proyect_003.Clases.Grupos
+import com.fcfm.poi_proyect_003.Clases.SubGrupos
 import com.fcfm.poi_proyect_003.HomeActivity
 import com.fcfm.poi_proyect_003.R
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_chat2.*
 import kotlinx.android.synthetic.main.group_activity.view.*
 
 class FragmentoGrupo: Fragment() {
@@ -105,6 +101,8 @@ class FragmentoGrupo: Fragment() {
         adaptadorMensaje.notifyDataSetChanged()
     }*/
 
+    var CarreraUsuario = ""
+
     private lateinit var rootView: View
 
     override fun onCreateView(
@@ -112,13 +110,19 @@ class FragmentoGrupo: Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+
         rootView = inflater.inflate(R.layout.group_activity, container, false)
+
+        //Modificaciones
+        CarreraUsuario = (getActivity() as HomeActivity).getCarrera()
 
         rootView.btnCrearGrupo.setOnClickListener {
             val intent = Intent(this@FragmentoGrupo.context, AltaGruposActivity::class.java)
+            intent.putExtra("carrera", CarreraUsuario)
             startActivity(intent)
         }
 
+        //Ir al grupo principal
         rootView.btnPreba.setOnClickListener {
             val intent = Intent(this@FragmentoGrupo.context, ChatGrupoActivity::class.java)
             intent.putExtra("Carrera", (getActivity() as HomeActivity).getCarrera())
@@ -129,7 +133,7 @@ class FragmentoGrupo: Fragment() {
     }
 
     fun mostrarGrupos(){
-        var groupList = ArrayList<Grupos>()
+        var groupList = ArrayList<SubGrupos>()
         val databaseReference:DatabaseReference =
                 FirebaseDatabase.getInstance().getReference("Grupos")
 
@@ -140,7 +144,7 @@ class FragmentoGrupo: Fragment() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 for(dataSnapShot:DataSnapshot in snapshot.children){
-                    val grupo = dataSnapShot.getValue(Grupos::class.java)
+                    val grupo = dataSnapShot.getValue(SubGrupos::class.java)
                     if(true){
                         if (grupo != null) {
                             groupList.add(grupo)

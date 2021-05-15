@@ -1,19 +1,28 @@
 package com.fcfm.poi_proyect_003
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.renderscript.Sampler
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.fcfm.poi_proyect_003.Clases.SubGrupos
 import com.fcfm.poi_proyect_003.Clases.Usuarios
+import com.github.drjacky.imagepicker.ImagePicker
+import com.github.drjacky.imagepicker.constant.ImageProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 
 import kotlinx.android.synthetic.main.group_form.*
 import kotlinx.android.synthetic.main.mensaje.*
+import java.io.File
 
 
 class AltaGruposActivity: AppCompatActivity() {
@@ -21,8 +30,14 @@ class AltaGruposActivity: AppCompatActivity() {
     private val subRef = database.getReference("SubGrupos")
     private val Ref = database.getReference()
 
+    private val storageRef = FirebaseStorage.getInstance().reference
+
+
     var carreraUser = ""
     var correoUser = ""
+    var idSubgrupoCreado = ""
+    var imagenPath = ""
+    var imagenUrl = ""
 
     //Variables para guardar los datos del usuario
     var nombreU: String = ""
@@ -55,8 +70,8 @@ class AltaGruposActivity: AppCompatActivity() {
                 .addValueEventListener(object : ValueEventListener {
 
                     override fun onDataChange(snapshot: DataSnapshot) {
-                    for (snap in snapshot.children){
-                        val user = snap.getValue(Usuarios::class.java) as Usuarios
+                        for (snap in snapshot.children){
+                            val user = snap.getValue(Usuarios::class.java) as Usuarios
                             nombreU = user.nombre
                             carreraU = user.carrera
                             correoU = user.correo
@@ -73,6 +88,12 @@ class AltaGruposActivity: AppCompatActivity() {
 
                 })
 
+        //Boton para cargar imagen
+        val subirImagen: Button = findViewById(R.id.btnSubirImagenSG)
+        subirImagen.setOnClickListener{
+            seleccionarImagen(ImageProvider.GALLERY)
+        }
+
 
         //Botton para agregar un grupo
         val nuevoGrupo: Button = findViewById(R.id.btnAgregarGrupo)
@@ -81,7 +102,9 @@ class AltaGruposActivity: AppCompatActivity() {
             val descGrupo = etDescGrupo.text.toString()
             if(nombreGrupo != "") {
                 //agregarGrupoBD(nombreGrupo, descGrupo)
-                crearGrupo(SubGrupos("", carreraUser, nombreGrupo), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
+                idSubgrupoCreado = crearGrupo(SubGrupos("", carreraUser, nombreGrupo/*, imagenPath*/), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
+                val file:File = File(imagenPath)
+                subirImagen(file,idSubgrupoCreado)
                 Toast.makeText(applicationContext, "Grupo creado con exito", Toast.LENGTH_SHORT).show()
                 finish()
             }
@@ -93,6 +116,69 @@ class AltaGruposActivity: AppCompatActivity() {
                 ).show()
             }
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            //Image Uri will not be null for RESULT_OK
+            val fileUri = data?.data
+            findViewById<ImageView>(R.id.ivSubgrupo).setImageURI(fileUri)
+
+            //You can get File object from intent
+            //val file:File = ImagePicker.getFile(data)!!
+
+
+            //You can also get File Path from intent
+            //val filePath:String = ImagePicker.getFilePath(data)!!
+
+            imagenPath = ImagePicker.getFilePath(data)!!
+
+
+
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun seleccionarImagen(provider: ImageProvider){
+
+        val intentGallery = ImagePicker.with(this)
+                .crop()        //Crop image(Optional), Check Customization for more option
+                .cropOval()    //Allow dimmed layer to have a circle inside
+                .maxResultSize(1080, 1080) //Final image resolution will be less than 1080 x 1080(Optional)
+                .provider(provider)
+                .createIntent()
+
+        startActivityForResult(intentGallery,1)
+    }
+
+    private fun subirImagen(archivoImagen: File, idSubgrupo: String){
+
+        //Mostramos el progressBar
+        findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.VISIBLE
+
+        val imagenesSubgruposRef = storageRef.child("imagenesSubgrupos/$idSubgrupo") //Enviar id del subgrupo
+
+        imagenesSubgruposRef.putFile(Uri.fromFile(archivoImagen))
+
+                .addOnSuccessListener {
+                    findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
+
+                    imagenesSubgruposRef.downloadUrl.addOnSuccessListener {
+
+                        imagenUrl = it.toString()
+
+                    }
+
+                }
+
+                .addOnFailureListener{
+                    findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
+                }
+
     }
 
     fun agregarGrupoBD(nombreGrupo:String,descGrupo:String){
@@ -123,17 +209,53 @@ class AltaGruposActivity: AppCompatActivity() {
 
     }
 
-    private fun crearGrupo(subGrupos: SubGrupos, usuarios: Usuarios){
+    private fun crearGrupo(subGrupos: SubGrupos, usuarios: Usuarios): String{
         val mensajeFirebase = subRef.push()
-        val Hello: String = "Hello"
         subGrupos.id = mensajeFirebase.key ?: "" //Puede ser nulo
-        subGrupos.imagen = Hello.toString()
-        mensajeFirebase.setValue(subGrupos)
 
+
+
+
+
+
+        //Mostramos el progressBar
+        /*findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.VISIBLE
+        val archivoImagen:File = File(imagenPath)
+
+        val imagenesSubgruposRef = storageRef.child("imagenesSubgrupos/${subGrupos.id}") //Enviar id del subgrupo
+
+        imagenesSubgruposRef.putFile(Uri.fromFile(archivoImagen))
+
+            .addOnSuccessListener {
+                findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
+
+                imagenesSubgruposRef.downloadUrl.addOnSuccessListener {
+
+
+                }
+
+            }
+
+            .addOnFailureListener{
+                findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
+            }
+
+         */
+
+
+
+
+
+        /*val ImagenUrl: String = "Prueba"
+        subGrupos.imagen = ImagenUrl.toString()//"Hola"//it.toString()*/
+
+        mensajeFirebase.setValue(subGrupos)
         val child = subRef.child(subGrupos.id).
         child("Participantes").push()
 
         child.setValue(usuarios)
+
+        return subGrupos.id
 
     }
 

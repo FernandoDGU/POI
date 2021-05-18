@@ -3,10 +3,13 @@ package com.fcfm.poi_proyect_003.Adaptadores
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import com.fcfm.poi_proyect_003.Clases.SubGrupos
 import com.fcfm.poi_proyect_003.Fragment.FragmentoGrupo
+import com.fcfm.poi_proyect_003.R
 import kotlinx.android.synthetic.main.group_list.view.*
 
 interface SubGruposClickListener{
@@ -19,13 +22,15 @@ class subGruposAdapter(private val context: FragmentoGrupo,
         RecyclerView.Adapter<subGruposAdapter.subGrupoViewHolder>() {
 
     inner class subGrupoViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bindData(currenGrup: SubGrupos) {
+        val txtUserName: TextView = itemView.findViewById(R.id.txtNombreGrupoLista)
+        fun bindData(currentGroup: SubGrupos) {
             //Se manda lo que es el nombre del grupo a la lista
-            itemView.txtNombreGrupoLista.text = currenGrup.nombreGrupo
+            //itemView.txtNombreGrupoLista.text = currentGrup.nombreGrupo
 
+            itemView.txtNombreGrupoLista.text = currentGroup.nombreGrupo
             itemView.txtNombreGrupoLista.setOnClickListener(null)
             itemView.txtNombreGrupoLista.setOnClickListener{
-                subGrupoClickListener.subGrupoListener(currenGrup)
+                subGrupoClickListener.subGrupoListener(currentGroup)
             }
 
         }
@@ -42,5 +47,4 @@ class subGruposAdapter(private val context: FragmentoGrupo,
     override fun onBindViewHolder(holder: subGrupoViewHolder, position: Int) {
         holder.bindData(subGruposlist[position])
     }
-
 }

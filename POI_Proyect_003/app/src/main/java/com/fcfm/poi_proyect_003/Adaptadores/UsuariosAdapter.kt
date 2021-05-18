@@ -19,7 +19,7 @@ interface ContactoClick {
     fun detalle(Usuario:Usuarios)
 }
 
-class UsuariosAdapter(private val context: UsuariosActivity, private val userList:ArrayList<Usuarios>,
+class UsuariosAdapter(private val context: FragmentoChat, private val userList:ArrayList<Usuarios>,
                       private val contactoClick: ContactoClick) :
     RecyclerView.Adapter<UsuariosAdapter.ViewHolder>() {
 

@@ -6,7 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.fcfm.poi_proyect_003.Adaptadores.SubGruposClickListener
 import com.fcfm.poi_proyect_003.Adaptadores.subGruposAdapter
 import com.fcfm.poi_proyect_003.AltaGruposActivity
@@ -15,6 +18,8 @@ import com.fcfm.poi_proyect_003.Clases.SubGrupos
 import com.fcfm.poi_proyect_003.HomeActivity
 import com.fcfm.poi_proyect_003.R
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_chat2.*
+import kotlinx.android.synthetic.main.activity_usuarios.view.*
 import kotlinx.android.synthetic.main.group_activity.view.*
 import java.lang.Exception
 import java.sql.Ref
@@ -128,7 +133,7 @@ class FragmentoGrupo: Fragment() {
     ): View? {
 
         rootView = inflater.inflate(R.layout.group_activity, container, false)
-
+        rootView.rvSubGrupos.layoutManager = LinearLayoutManager(this@FragmentoGrupo.context, LinearLayout.VERTICAL, false)
         //Modificaciones
         CarreraUsuario = (getActivity() as HomeActivity).getCarrera()
         CorreoUsuario = (getActivity() as HomeActivity).getCorreo()
@@ -178,11 +183,11 @@ class FragmentoGrupo: Fragment() {
                     val grupo = dataSnapShot.getValue(SubGrupos::class.java)
                     if(true){
                         if (grupo != null) {
-                            //groupList.add(grupo)
+                           // groupList.add(grupo)
                         }
                     }
                 }
-                //val groupAdapter = Adapter(this, R.layout.group_list,groupList)
+               // val groupAdapter = RecyclerView.Adapter(this, R.layout.group_list, groupList)
                 //chatRecyclerView.adapter = chatAdapter
             }
         })
@@ -202,6 +207,7 @@ class FragmentoGrupo: Fragment() {
                     SubGrupos.clear()
                     var correoPersona = ""
                     for (snap in snapshot.children){
+
                         var childKey = snap.key.toString()
                         var Personas = snap.child("Participantes").children
                         for (persona in Personas){
@@ -212,21 +218,16 @@ class FragmentoGrupo: Fragment() {
                                 var id = snap.child("id").value.toString()
                                 var nombre = snap.child("nombreGrupo").value.toString()
 
-                                if(carrera == CarreraUsuario){
-                                    SubGrupos.add(SubGrupos(id, carrera, nombre))
-                                }
+                               // if(carrera == "LMAD"){
+                                    SubGrupos.add(SubGrupos(id, carrera, nombre, ""))
+                                //}
                             }
                         }
-
                         if(SubGrupos.size > 0 ){
                             adaptadorSubGrupos.notifyDataSetChanged()
                         }
                     }
                 }
-
-
-
-
             })
             adaptadorSubGrupos.notifyDataSetChanged()
         }catch (e: Exception){

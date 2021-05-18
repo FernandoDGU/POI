@@ -41,10 +41,10 @@ class ChatIndividualAdapter(private val context: Context, private val chatList: 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val chat = chatList[position]
-        holder.txtUserName.text = chat.message
+        holder.txtMessage.text = chat.message
     }
     class ViewHolder(view:View):RecyclerView.ViewHolder(view){
-        val txtUserName: TextView = view.findViewById(R.id.tvMessage)
+        val txtMessage: TextView = view.findViewById(R.id.tvMessage)
     }
 
     override fun getItemViewType(position: Int): Int {

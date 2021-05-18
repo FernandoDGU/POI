@@ -24,18 +24,18 @@ import kotlinx.android.synthetic.main.activity_usuarios.view.*
 
 class FragmentoChat: Fragment() {
     var userList = ArrayList<Usuarios>()
-
+    private lateinit var usuariosAdapter: UsuariosAdapter
     //private val database = FirebaseDatabase.getInstance()
     //private val chatRef = database.getReference("")
     //private val Ref = database.getReference()
 
     //private val listMensajes = mutableListOf<ChatGrupal>()
     private lateinit var rootView: View
-    private val contexto = UsuariosActivity()
+    //private val contexto = FragmentoChat()
     //private val listaUsuarios = ArrayList<Usuarios>()
     //private val adaptadorUsuarios = UsuariosAdapter(contexto ,listaUsuarios)
 
-    @SuppressLint("WrongConstant")
+   // @SuppressLint("WrongConstant")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -46,12 +46,23 @@ class FragmentoChat: Fragment() {
         //Checar
         //userRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayout.VERTICAL, false)
         //userRecyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayout.VERTICAL, false)
-        rootView.userRecyclerView.layoutManager = LinearLayoutManager(contexto, LinearLayout.VERTICAL, false)
+        rootView.userRecyclerView.layoutManager = LinearLayoutManager(this@FragmentoChat.context, LinearLayout.VERTICAL, false)
 
         //rootView.imgBack.setOnClickListener{
             //onBackPressed()
 
         //}
+        usuariosAdapter = UsuariosAdapter(this, userList, object : ContactoClick{
+            override fun detalle(Usuario: Usuarios) {
+                val intent = Intent(this@FragmentoChat.context, ChatActivity::class.java)
+                intent.putExtra("userName", Usuario.nombre)
+                intent.putExtra("idAlmuno", Usuario.idAlumno)
+                //intent.putExtra("estado", Usuario.estado)
+                startActivity(intent)
+            }
+        })
+        //Checar esto porque da error
+        rootView.userRecyclerView.adapter = usuariosAdapter
         getUserList()
         return rootView
         }
@@ -89,12 +100,12 @@ class FragmentoChat: Fragment() {
                     .getReference("Usuarios")
             databaseReference.addValueEventListener(object : ValueEventListener{
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(contexto.applicationContext, error.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@FragmentoChat.context, error.message, Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(dataSnapShot in snapshot.children) {
-                        val user = dataSnapShot.getValue(Usuarios::class.java)
+                        val user = dataSnapShot.getValue(Usuarios::class.java) as Usuarios
                         if(user!!.idAlumno != firebase.uid){
                             userList.add(user)
                         }else{
@@ -103,22 +114,15 @@ class FragmentoChat: Fragment() {
                         //checarlo
 
                     }
-                    val usuariosAdapter = UsuariosAdapter(contexto, userList, object : ContactoClick{
-                        override fun detalle(Usuario: Usuarios) {
-                            val intent = Intent(this@FragmentoChat.context, ChatActivity::class.java)
-                            intent.putExtra("userName", Usuario.nombre)
-                            intent.putExtra("idAlmuno", Usuario.idAlumno)
-                            //intent.putExtra("estado", Usuario.estado)
-                            startActivity(intent)
-                        }
-                    })
-                    //Checar esto porque da error
-                    userRecyclerView.adapter = usuariosAdapter
+                    if (userList.size>0){
+                        usuariosAdapter.notifyDataSetChanged()
+                    }
+
 
                 }
 
             })
-
+            usuariosAdapter.notifyDataSetChanged()
         }
 
 }

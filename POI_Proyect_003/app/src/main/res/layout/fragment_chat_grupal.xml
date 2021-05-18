@@ -71,12 +71,25 @@
         android:paddingTop="5sp"
         android:paddingBottom="5sp"
         android:textColorHint="#F1F1F1"
+        android:textColor="#F1F1F1"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnAgregarUsuario"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="300dp"
+        android:text="+"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/txtNombreGrupo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/txtNombreGrupo"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

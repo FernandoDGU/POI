@@ -111,7 +111,7 @@ class FragmentoGrupo: Fragment() {
         adaptadorMensaje.notifyDataSetChanged()
     }*/
 
-
+//PRIMERO
     private val database = FirebaseDatabase.getInstance()
     private val subgruposRef = database.getReference("SubGrupos")
     private val Ref = database.getReference()
@@ -144,6 +144,12 @@ class FragmentoGrupo: Fragment() {
             override fun subGrupoListener(grupos: SubGrupos) {
                 idGrupo = grupos.id
                 grupoNombre = grupos.nombreGrupo
+                val intent = Intent(this@FragmentoGrupo.context, ChatGrupoActivity::class.java)
+                intent.putExtra("Carrera", CarreraUsuario)
+                intent.putExtra("Agregar", "AgregarUsuario");
+                intent.putExtra("id", grupos.id)
+                intent.putExtra("Correo", CorreoUsuario)
+                startActivity(intent)
 
             }
         })

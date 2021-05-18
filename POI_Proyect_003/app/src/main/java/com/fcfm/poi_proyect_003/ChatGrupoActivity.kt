@@ -15,6 +15,7 @@ import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
+import kotlinx.android.synthetic.main.mensaje.*
 import kotlin.math.log
 import android.app.Activity as A
 
@@ -27,11 +28,15 @@ class ChatGrupoActivity: AppCompatActivity(){
     private val listaMensajes  = mutableListOf<ChatGrupal>()
     private val adaptadorMensaje = chatGrupalAdapter(listaMensajes)
 
-    var CorreoUsuario = ""
-    var nombre = ""
-    var CarreraUsuario : String = ""
-    var carrera = ""
 
+    var nombre = ""
+    var agregar = ""
+
+
+    //Datos recibidos
+    var idGrupo : String = ""
+    var CorreoUsuario = ""
+    var CarreraUsuario : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +54,14 @@ class ChatGrupoActivity: AppCompatActivity(){
         var user = Firebase.auth.currentUser
         CorreoUsuario = user.email
         CarreraUsuario = intent.getStringExtra("Carrera").toString()
+        agregar = intent.getStringExtra("Agregar").toString()
+        idGrupo = intent.getStringExtra("id").toString()
+
+        if(agregar == "AgregarUsuario"){
+            btnAgregarUsuario.visibility = android.view.View.VISIBLE
+        }
+
+        txtNombreGrupo.text = intent.getStringExtra("Carrera").toString()
 
         Ref.child("Usuarios").orderByChild("correo").equalTo(CorreoUsuario).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -62,6 +75,18 @@ class ChatGrupoActivity: AppCompatActivity(){
             }
         })
 
+        //SEGUNDO
+        btnAgregarUsuario.setOnClickListener {
+            val intent = Intent(this, AgregarSubActivity::class.java)
+            intent.putExtra("Carrera", CarreraUsuario)
+            intent.putExtra("id", idGrupo)
+            intent.putExtra("Correo", CorreoUsuario)
+            startActivity(intent)
+        }
+            //val intent = Intent(this@FragmentoGrupo.context, AltaGruposActivity::class.java)
+            //intent.putExtra("carrera", CarreraUsuario)
+            //startActivity(intent)
+
 
         btnEnviarMensaje.setOnClickListener {
             if(txtEnviarMensaje.text.toString() !== ""){
@@ -71,6 +96,8 @@ class ChatGrupoActivity: AppCompatActivity(){
             }
 
         }
+
+
 
         rvChatGrupal.adapter = adaptadorMensaje
         recibirMensaje()

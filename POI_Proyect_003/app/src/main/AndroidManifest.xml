@@ -28,6 +28,7 @@
         <activity android:name=".ChatGrupoActivity" />
         <activity android:name=".AltaTareasActivity" />
         <activity android:name=".AltaGruposActivity" />
+        <activity android:name=".AgregarSubActivity" />
     </application>
 
 </manifest>

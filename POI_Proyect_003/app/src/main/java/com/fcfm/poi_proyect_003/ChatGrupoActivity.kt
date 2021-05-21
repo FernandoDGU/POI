@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
 import kotlinx.android.synthetic.main.mensaje.*
+import java.util.concurrent.locks.Condition
 import kotlin.math.log
 import android.app.Activity as A
 
@@ -37,6 +38,8 @@ class ChatGrupoActivity: AppCompatActivity(){
     var idGrupo : String = ""
     var CorreoUsuario = ""
     var CarreraUsuario : String = ""
+    var NombreGrupo: String = ""
+    var condition: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,14 +57,22 @@ class ChatGrupoActivity: AppCompatActivity(){
         var user = Firebase.auth.currentUser
         CorreoUsuario = user.email
         CarreraUsuario = intent.getStringExtra("Carrera").toString()
+        NombreGrupo = intent.getStringExtra("nombre").toString()
         agregar = intent.getStringExtra("Agregar").toString()
         idGrupo = intent.getStringExtra("id").toString()
 
         if(agregar == "AgregarUsuario"){
             btnAgregarUsuario.visibility = android.view.View.VISIBLE
+            //CarreraUsuario = intent.getStringExtra("nombre").toString()
+            txtNombreGrupo.text = intent.getStringExtra("nombre").toString()
+            condition = true
+
+        }else{
+            condition = false
+            txtNombreGrupo.text = intent.getStringExtra("Carrera").toString()
         }
 
-        txtNombreGrupo.text = intent.getStringExtra("Carrera").toString()
+
 
         Ref.child("Usuarios").orderByChild("correo").equalTo(CorreoUsuario).addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -89,29 +100,94 @@ class ChatGrupoActivity: AppCompatActivity(){
 
 
         btnEnviarMensaje.setOnClickListener {
-            if(txtEnviarMensaje.text.toString() !== ""){
-                var mensaje = txtEnviarMensaje.text.toString()
-                enviarMensaje(ChatGrupal("", mensaje, CorreoUsuario, nombre, ServerValue.TIMESTAMP))
-                txtEnviarMensaje.text.clear()
+            if(condition == true){
+                if (txtEnviarMensaje.text.toString() !== "") {
+                    var mensaje = txtEnviarMensaje.text.toString()
+                    enviarMensajeSub(
+                        ChatGrupal(
+                            "",
+                            mensaje,
+                            CorreoUsuario,
+                            nombre,
+                            ServerValue.TIMESTAMP
+                        )
+                    )
+                    txtEnviarMensaje.text.clear()
+                }
+            }else {
+                if (txtEnviarMensaje.text.toString() !== "") {
+                    var mensaje = txtEnviarMensaje.text.toString()
+                    enviarMensaje(
+                        ChatGrupal(
+                            "",
+                            mensaje,
+                            CorreoUsuario,
+                            nombre,
+                            ServerValue.TIMESTAMP
+                        )
+                    )
+                    txtEnviarMensaje.text.clear()
+                }
             }
 
         }
 
 
+        if(condition == true){
+            rvChatGrupal.adapter = adaptadorMensaje
+            recibirMensajeSub()
+        }else{
+            rvChatGrupal.adapter = adaptadorMensaje
+            recibirMensaje()
+        }
 
-        rvChatGrupal.adapter = adaptadorMensaje
-        recibirMensaje()
 
     }
 
     private fun enviarMensaje(mensaje: ChatGrupal){
+        //CARRERA USUARIO ES EL NOMBRE DEL GRUPO
         val child = chatRef.child(CarreraUsuario).push()
+        mensaje.id = child.key ?:""
+        child.setValue(mensaje)
+    }
+    private fun enviarMensajeSub(mensaje: ChatGrupal){
+        //CARRERA USUARIO ES EL NOMBRE DEL GRUPO
+        val child = chatRef.child(NombreGrupo).push()
         mensaje.id = child.key ?:""
         child.setValue(mensaje)
     }
 
     private fun recibirMensaje(){
+        //CARRERA USUARIO ES EL NOMBRE DEL GRUPO
         chatRef.child(CarreraUsuario).addValueEventListener(object : ValueEventListener{
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listaMensajes.clear()
+                for(snap in snapshot.children){
+                    val mensaje : ChatGrupal = snap.getValue(ChatGrupal::class.java) as ChatGrupal
+
+                    if(mensaje.de == CorreoUsuario){
+                        mensaje.esMio = true
+                    }
+                    listaMensajes.add(mensaje)
+                }
+                if(listaMensajes.size>0){
+                    adaptadorMensaje.notifyDataSetChanged()
+                    rvChatGrupal.smoothScrollToPosition(listaMensajes.size-1)
+                }
+            }
+
+        })
+        adaptadorMensaje.notifyDataSetChanged()
+    }
+
+    private fun recibirMensajeSub(){
+        //CARRERA USUARIO ES EL NOMBRE DEL GRUPO
+        chatRef.child(NombreGrupo).addValueEventListener(object : ValueEventListener{
 
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")

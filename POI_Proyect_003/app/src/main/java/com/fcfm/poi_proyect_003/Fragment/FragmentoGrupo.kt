@@ -146,6 +146,7 @@ class FragmentoGrupo: Fragment() {
                 grupoNombre = grupos.nombreGrupo
                 val intent = Intent(this@FragmentoGrupo.context, ChatGrupoActivity::class.java)
                 intent.putExtra("Carrera", CarreraUsuario)
+                intent.putExtra("nombre", grupoNombre)
                 intent.putExtra("Agregar", "AgregarUsuario");
                 intent.putExtra("id", grupos.id)
                 intent.putExtra("Correo", CorreoUsuario)

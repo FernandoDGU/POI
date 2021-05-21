@@ -60,7 +60,7 @@ class AgregarSubActivity : AppCompatActivity(){
 
         //Agregar alumno
         btnAgregarMiembro.setOnClickListener{
-            agregarAlumno(Usuarios( "",txtNombreShowAdd.text.toString(),, "",
+            agregarAlumno(Usuarios( "",txtNombreShowAdd.text.toString(), "",
                 carreraUser, txtCorreoShowAdd.text.toString(), ""))
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)

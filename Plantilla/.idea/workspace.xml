@@ -8,14 +8,21 @@
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="bec21d51-f48e-40b6-9d0d-ced3f24923a2" name="Default Changelist" comment="" />
+    <list default="true" id="bec21d51-f48e-40b6-9d0d-ced3f24923a2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../POI_Proyect_003/app/src/main/java/com/fcfm/poi_proyect_003/ChatGrupoActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../POI_Proyect_003/app/src/main/java/com/fcfm/poi_proyect_003/ChatGrupoActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Plantilla.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Plantilla.app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[D1LGAD2760201919]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[VirtualDevicePath@C:\Users\fer_2\.android\avd\Pixel_2_API_30.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -59,7 +66,7 @@
     <property name="android-custom-viewC:/Users/Familia Moreno/AppData/Local/Android/Sdk/sources/android-30/android/view/ViewGroup.java_SELECTED" value="ViewGroup" />
     <property name="android-custom-viewC:/Users/Pablo Mariles/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
     <property name="android-custom-viewC:/Users/diego/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_SELECTED" value="RecyclerView" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../ProyectoReferencia/Proyecto/Plantilla" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Fcfm/Septimo Semestre/POI/Referencia 2/Proyecto/Plantilla" />
     <property name="multi-representation-previewC:/Users/Familia Moreno/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_selected" value="Custom views" />
     <property name="multi-representation-previewC:/Users/Familia Moreno/AppData/Local/Android/Sdk/sources/android-30/android/view/ViewGroup.java_selected" value="Custom views" />
     <property name="multi-representation-previewC:/Users/Pablo Mariles/.gradle/caches/modules-2/files-2.1/androidx.recyclerview/recyclerview/1.1.0/f2bdf79e1977939817f54a9d3e2f6bc52b63bdd0/recyclerview-1.1.0-sources.jar!/androidx/recyclerview/widget/RecyclerView.java_selected" value="Custom views" />
@@ -107,6 +114,7 @@
       <option name="ARTIFACT_NAME" value="" />
       <option name="PM_INSTALL_OPTIONS" value="" />
       <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
       <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
       <option name="ACTIVITY_EXTRA_FLAGS" value="" />
       <option name="MODE" value="default_activity" />
@@ -157,6 +165,7 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -179,10 +188,11 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="565" y="159" key="AndroidProcessChooserDialog/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1619321588454" />
-    <state x="559" y="241" key="FileChooserDialogImpl" timestamp="1620983007551">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2959" y="241" key="FileChooserDialogImpl" timestamp="1621570835027">
+      <screen x="2400" y="0" width="1920" height="1040" />
     </state>
     <state x="447" y="191" key="FileChooserDialogImpl/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1619417926967" />
+    <state x="2959" y="241" key="FileChooserDialogImpl/0.0.1536.824/2400.0.1920.1040@2400.0.1920.1040" timestamp="1621570835027" />
     <state x="559" y="241" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1620983007551" />
     <state width="1491" height="210" key="GridCell.Tab.0.bottom" timestamp="1619346159534">
       <screen x="0" y="0" width="1536" height="824" />
@@ -239,7 +249,7 @@
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
-        <PinnedItemInfo typeName="java.util.HashMap$Node" fieldName="value" />
+        <PinnedItemInfo />
       </pinned-members>
     </pin-to-top-manager>
   </component>

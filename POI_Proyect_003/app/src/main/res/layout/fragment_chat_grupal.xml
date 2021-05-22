@@ -31,6 +31,33 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints">
 
+        <!-- <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            app:srcCompat = "@drawable/ic_baseline_https_24"
+
+            /> -->
+        <ImageView
+            android:id="@+id/iconLock"
+            android:layout_width="34dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat = "@drawable/ic_baseline_https_24"
+            tools:ignore="VectorDrawableCompat" />
+
+        <CheckBox
+            android:id="@+id/chEncrypted"
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iconLock"
+            app:layout_constraintVertical_bias="0.545"
+            tools:layout_editor_absoluteX="52dp" />
         <EditText
             android:id="@+id/txtEnviarMensaje"
             android:layout_width="0dp"
@@ -44,7 +71,7 @@
             android:textColorHint="#DADADA"
             app:layout_constraintBottom_toBottomOf="@+id/btnEnviarMensaje"
             app:layout_constraintEnd_toStartOf="@+id/btnEnviarMensaje"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/chEncrypted"
             app:layout_constraintTop_toTopOf="@+id/btnEnviarMensaje" />
 
         <Button

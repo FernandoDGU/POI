@@ -8,7 +8,8 @@ class ChatGrupal(
     var contenido: String = "",
     var de: String = "",
     var deNombre: String ="",
-    var timestamp: Any? = null
+    var timestamp: Any? = null,
+    var encrypt: Boolean = false
 ) {
     @Exclude
     var esMio: Boolean = false

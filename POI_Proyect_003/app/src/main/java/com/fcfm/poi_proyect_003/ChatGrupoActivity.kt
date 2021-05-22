@@ -107,34 +107,31 @@ class ChatGrupoActivity: AppCompatActivity(){
             //startActivity(intent)
 
 
+        //Aquí va la encriptacion
         btnEnviarMensaje.setOnClickListener {
             if(condition == true){
                 if (txtEnviarMensaje.text.toString() !== "") {
                     var mensaje = txtEnviarMensaje.text.toString()
-                    enviarMensajeSub(
-                        ChatGrupal(
-                            "",
-                            mensaje,
-                            CorreoUsuario,
-                            nombre,
-                            ServerValue.TIMESTAMP
-                        )
-                    )
+                    val mensajeEncrypted = cifrar(mensaje, "FER12345")
+                    if(chEncrypted.isChecked){
+                        enviarMensajeSub(
+                            ChatGrupal("", mensajeEncrypted, CorreoUsuario, nombre, ServerValue.TIMESTAMP), true)
+                    }else{
+                        enviarMensajeSub(
+                            ChatGrupal("", mensaje, CorreoUsuario, nombre, ServerValue.TIMESTAMP), false)
+                    }
                     txtEnviarMensaje.text.clear()
                 }
             }else {
                 if (txtEnviarMensaje.text.toString() !== "") {
                     var mensaje = txtEnviarMensaje.text.toString()
-                    enviarMensaje(
-                        ChatGrupal(
-                            "",
+                    val mensajeEncrypted = cifrar(mensaje, "FER12345")
+                    if(chEncrypted.isChecked){
+                        enviarMensaje(ChatGrupal("", mensajeEncrypted, CorreoUsuario, nombre, ServerValue.TIMESTAMP), true)
+                    }else{
+                        enviarMensaje(ChatGrupal("", mensaje, CorreoUsuario, nombre, ServerValue.TIMESTAMP), false)
+                    }
 
-                            mensaje,
-                            CorreoUsuario,
-                            nombre,
-                            ServerValue.TIMESTAMP
-                        )
-                    )
                     txtEnviarMensaje.text.clear()
                 }
             }
@@ -151,22 +148,24 @@ class ChatGrupoActivity: AppCompatActivity(){
         }
 
         //Ejemplo de encriptacion
-        val textoCifrado = cifrar("Hola", "Fer1234")
-        val textoOriginal = descifrar(textoCifrado, "Fer1234")
+        //val textoCifrado = cifrar("Hola", "Fer1234")
+        //val textoOriginal = descifrar(textoCifrado, "Fer1234")
 
 
     }
 
-    private fun enviarMensaje(mensaje: ChatGrupal){
+    private fun enviarMensaje(mensaje: ChatGrupal, cifrado: Boolean){
         //CARRERA USUARIO ES EL NOMBRE DEL GRUPO
         val child = chatRef.child(CarreraUsuario).push()
         mensaje.id = child.key ?:""
+        mensaje.encrypt = cifrado
         child.setValue(mensaje)
     }
-    private fun enviarMensajeSub(mensaje: ChatGrupal){
+    private fun enviarMensajeSub(mensaje: ChatGrupal, cifrado: Boolean){
         //CARRERA USUARIO ES EL NOMBRE DEL GRUPO
         val child = chatRef.child(NombreGrupo).push()
         mensaje.id = child.key ?:""
+        mensaje.encrypt = cifrado
         child.setValue(mensaje)
     }
 
@@ -183,6 +182,10 @@ class ChatGrupoActivity: AppCompatActivity(){
                 for(snap in snapshot.children){
                     val mensaje : ChatGrupal = snap.getValue(ChatGrupal::class.java) as ChatGrupal
 
+                    if(mensaje.encrypt){
+                        val mensajeDesencrypt = descifrar(mensaje.contenido, "FER12345")
+                        mensaje.contenido = mensajeDesencrypt
+                    }
                     if(mensaje.de == CorreoUsuario){
                         mensaje.esMio = true
                     }
@@ -210,7 +213,10 @@ class ChatGrupoActivity: AppCompatActivity(){
                 listaMensajes.clear()
                 for(snap in snapshot.children){
                     val mensaje : ChatGrupal = snap.getValue(ChatGrupal::class.java) as ChatGrupal
-
+                    if(mensaje.encrypt){
+                        val mensajeDesencrypt = descifrar(mensaje.contenido, "FER12345")
+                        mensaje.contenido = mensajeDesencrypt
+                    }
                     if(mensaje.de == CorreoUsuario){
                         mensaje.esMio = true
                     }

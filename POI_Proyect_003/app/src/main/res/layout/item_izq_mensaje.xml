@@ -21,10 +21,10 @@
             android:layout_marginTop="4dp"
             android:maxEms="20"
             android:minEms="10"
-            android:textColor="#707070"
+            android:textColor="#000000"
             tools:text="Hola ¿cómo estás?" />
 
-        <View
+        <!-- <View
             android:id="@+id/View"
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -39,6 +39,6 @@
             android:gravity="end"
             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
             android:textColor="#707070"
-            tools:text="22/10/2010 - 10:00 P.M." />
+            tools:text="22/10/2010 - 10:00 P.M." /> -->
     </LinearLayout>
 </FrameLayout>

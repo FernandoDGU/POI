@@ -1,6 +1,7 @@
 package com.fcfm.poi_proyect_003
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
 import kotlinx.android.synthetic.main.group_activity.view.*
 import kotlinx.android.synthetic.main.miembros_activity.*
@@ -54,6 +56,9 @@ class AgregarSubActivity : AppCompatActivity(){
             override fun usuarioListener(usuarios: Usuarios) {
                 txtNombreShowAdd.text = usuarios.nombre
                 txtCorreoShowAdd.text = usuarios.correo
+                val imagen2 = ivAddedUser
+                val imageUri = Uri.parse(usuarios.imagen)
+                Picasso.get().load(imageUri).into(imagen2)
             }
 
         })

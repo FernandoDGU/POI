@@ -27,10 +27,11 @@
         app:layout_constraintVertical_bias="0.0">
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/ivAddedUser"
             android:layout_width="78dp"
             android:layout_height="78dp"
             android:layout_marginTop="196dp"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@+id/txtNombreShowAdd"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,10 +60,10 @@
             android:text="Nombre"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/txtCorreoShowAdd"
-            app:layout_constraintEnd_toEndOf="@+id/imageView6"
+            app:layout_constraintEnd_toEndOf="@+id/ivAddedUser"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/imageView6"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+            app:layout_constraintStart_toStartOf="@+id/ivAddedUser"
+            app:layout_constraintTop_toBottomOf="@+id/ivAddedUser" />
 
         <Button
             android:id="@+id/btnAgregarMiembro"

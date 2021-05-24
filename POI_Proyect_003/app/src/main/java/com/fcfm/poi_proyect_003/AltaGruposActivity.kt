@@ -102,7 +102,7 @@ class AltaGruposActivity: AppCompatActivity() {
         val nuevoGrupo: Button = findViewById(R.id.btnAgregarGrupo)
         nuevoGrupo.setOnClickListener{
             /*val*/ nombreGrupo = etNombreGrupo.text.toString()
-            val descGrupo = etDescGrupo.text.toString()
+            //val descGrupo = etDescGrupo.text.toString()
             if(nombreGrupo != "") {
                 //agregarGrupoBD(nombreGrupo, descGrupo)
                 val file:File = File(imagenPath)

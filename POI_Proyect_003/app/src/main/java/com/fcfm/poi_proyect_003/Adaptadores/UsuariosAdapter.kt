@@ -2,9 +2,11 @@ package com.fcfm.poi_proyect_003.Adaptadores
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +16,7 @@ import com.fcfm.poi_proyect_003.Fragment.FragmentoChat
 import com.fcfm.poi_proyect_003.R
 import com.fcfm.poi_proyect_003.UsuariosActivity
 import com.google.android.material.internal.ContextUtils.getActivity
+import com.squareup.picasso.Picasso
 
 interface ContactoClick {
     fun detalle(Usuario:Usuarios)
@@ -39,6 +42,10 @@ class UsuariosAdapter(private val context: FragmentoChat, private val userList:A
        // val firebase: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
         holder.txtUserName.text = user.nombre
         holder.txtEstado.text = user.estado
+        holder.Foto
+        val imagenUser = holder.Foto
+        val imageUri =  Uri.parse(user.imagen)
+        Picasso.get().load(imageUri).into(imagenUser)
         holder.layoutUser.setOnClickListener {
             contactoClick.detalle(user)
             //val intent = Intent(context, ChatActivity::class.java)
@@ -51,5 +58,6 @@ class UsuariosAdapter(private val context: FragmentoChat, private val userList:A
         val txtUserName: TextView = view.findViewById(R.id.userName)
         val txtEstado:TextView = view.findViewById(R.id.estado)
         val layoutUser:LinearLayout = view.findViewById(R.id.layoutUser)
+        val Foto: ImageView = view.findViewById(R.id.ivChatUsuario)
     }
 }

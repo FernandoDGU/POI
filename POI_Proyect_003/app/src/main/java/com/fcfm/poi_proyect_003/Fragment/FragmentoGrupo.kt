@@ -224,9 +224,10 @@ class FragmentoGrupo: Fragment() {
                                 var carrera = snap.child("carrera").value.toString()
                                 var id = snap.child("id").value.toString()
                                 var nombre = snap.child("nombreGrupo").value.toString()
+                                var imagen = snap.child("imagen").value.toString()
 
                                // if(carrera == "LMAD"){
-                                    SubGrupos.add(SubGrupos(id, carrera, nombre, ""))
+                                    SubGrupos.add(SubGrupos(id, carrera, nombre, imagen))
                                 //}
                             }
                         }

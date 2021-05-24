@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.renderscript.Sampler
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
@@ -23,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.group_form.*
 import kotlinx.android.synthetic.main.mensaje.*
 import java.io.File
+import java.net.URI
 
 
 class AltaGruposActivity: AppCompatActivity() {
@@ -38,6 +40,7 @@ class AltaGruposActivity: AppCompatActivity() {
     var idSubgrupoCreado = ""
     var imagenPath = ""
     var imagenUrl = ""
+    var nombreGrupo = ""
 
     //Variables para guardar los datos del usuario
     var nombreU: String = ""
@@ -98,13 +101,13 @@ class AltaGruposActivity: AppCompatActivity() {
         //Botton para agregar un grupo
         val nuevoGrupo: Button = findViewById(R.id.btnAgregarGrupo)
         nuevoGrupo.setOnClickListener{
-            val nombreGrupo = etNombreGrupo.text.toString()
+            /*val*/ nombreGrupo = etNombreGrupo.text.toString()
             val descGrupo = etDescGrupo.text.toString()
             if(nombreGrupo != "") {
                 //agregarGrupoBD(nombreGrupo, descGrupo)
-                idSubgrupoCreado = crearGrupo(SubGrupos("", carreraUser, nombreGrupo/*, imagenPath*/), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
                 val file:File = File(imagenPath)
-                subirImagen(file,idSubgrupoCreado)
+                subirImagen(file,nombreGrupo)
+                ///*idSubgrupoCreado = */crearGrupo(SubGrupos("", carreraUser, nombreGrupo, imagenUrl), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
                 Toast.makeText(applicationContext, "Grupo creado con exito", Toast.LENGTH_SHORT).show()
                 finish()
             }
@@ -155,12 +158,14 @@ class AltaGruposActivity: AppCompatActivity() {
         startActivityForResult(intentGallery,1)
     }
 
-    private fun subirImagen(archivoImagen: File, idSubgrupo: String){
+    private fun subirImagen(archivoImagen: File, idSubgrupo: String){//:String{
+
+        var urlImage:String = "0"
 
         //Mostramos el progressBar
         findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.VISIBLE
 
-        val imagenesSubgruposRef = storageRef.child("imagenesSubgrupos/$idSubgrupo") //Enviar id del subgrupo
+        val imagenesSubgruposRef = storageRef.child("imagenesSubgrupos/$idSubgrupo.SubgruposImagen") //Enviar id del subgrupo
 
         imagenesSubgruposRef.putFile(Uri.fromFile(archivoImagen))
 
@@ -168,20 +173,32 @@ class AltaGruposActivity: AppCompatActivity() {
                     findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
 
                     imagenesSubgruposRef.downloadUrl.addOnSuccessListener {
-
+                        Log.w("LIGA",it.toString())
                         imagenUrl = it.toString()
+                        crearGrupo(SubGrupos("", carreraUser, nombreGrupo, imagenUrl), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
+
+                        //obtenerURL(it.toString())
+
 
                     }
+
+                    /*imagenesSubgruposRef.downloadUrl.addOnCompleteListener{
+                        task ->
+                        if (task.isSuccessful) {
+                            val downloadUri = task.result
+                            imagenUrl = "12345"//downloadUri.toString()
+                        }
+                    }*/
 
                 }
 
                 .addOnFailureListener{
                     findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
                 }
-
+        //return urlImage
     }
 
-    fun agregarGrupoBD(nombreGrupo:String,descGrupo:String){
+    /*fun agregarGrupoB/D(nombreGrupo:String,descGrupo:String){
 
         val firebaseUser = FirebaseAuth.getInstance().currentUser
 
@@ -204,12 +221,11 @@ class AltaGruposActivity: AppCompatActivity() {
         var userId = intent.getStringExtra("idAlmuno")
         firebaseUser = FirebaseAuth.getInstance().currentUser
         reference = FirebaseDatabase.getInstance().getReference("Usuarios").child(userId!!)
-
         database.child("Grupos").setValue(Grupo(nombreGrupo,descGrupo,userId.toString()))*/
 
-    }
+    }*/
 
-    private fun crearGrupo(subGrupos: SubGrupos, usuarios: Usuarios): String{
+    private fun crearGrupo(subGrupos: SubGrupos, usuarios: Usuarios){//: String{
         val mensajeFirebase = subRef.push()
         subGrupos.id = mensajeFirebase.key ?: "" //Puede ser nulo
 
@@ -255,8 +271,11 @@ class AltaGruposActivity: AppCompatActivity() {
 
         child.setValue(usuarios)
 
-        return subGrupos.id
+        //return subGrupos.id
 
     }
 
+    /*private fun obtenerURL(urlImage: String){
+        imagenUrl = urlImage
+    }*/
 }

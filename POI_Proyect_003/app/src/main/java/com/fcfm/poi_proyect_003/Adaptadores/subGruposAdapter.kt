@@ -27,6 +27,8 @@ class subGruposAdapter(private val context: FragmentoGrupo,
             //Se manda lo que es el nombre del grupo a la lista
             //itemView.txtNombreGrupoLista.text = currentGrup.nombreGrupo
             itemView.txtNombreGrupoLista.text = currentGroup.nombreGrupo
+            val imagenRec = itemView.ivSubGrupoRec
+            
             itemView.txtNombreGrupoLista.setOnClickListener(null)
             itemView.txtNombreGrupoLista.setOnClickListener{
                 subGrupoClickListener.subGrupoListener(currentGroup)

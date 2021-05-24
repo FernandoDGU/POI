@@ -160,7 +160,10 @@ class AltaGruposActivity: AppCompatActivity() {
         //Mostramos el progressBar
         findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.VISIBLE
 
-        val imagenesSubgruposRef = storageRef.child("imagenesSubgrupos/$idSubgrupo.SubgruposImagen") //Enviar id del subgrupo
+        val tsLong = System.currentTimeMillis()
+        val ts = tsLong.toString()
+
+        val imagenesSubgruposRef = storageRef.child("imagenesSubgrupos/$idSubgrupo.SubgruposImagen$ts") //Enviar id del subgrupo
 
         imagenesSubgruposRef.putFile(Uri.fromFile(archivoImagen))
 

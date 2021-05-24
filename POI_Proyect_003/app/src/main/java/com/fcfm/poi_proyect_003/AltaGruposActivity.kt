@@ -176,7 +176,6 @@ class AltaGruposActivity: AppCompatActivity() {
                         Log.w("LIGA",it.toString())
                         imagenUrl = it.toString()
                         crearGrupo(SubGrupos("", carreraUser, nombreGrupo, imagenUrl), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
-
                         //obtenerURL(it.toString())
 
 

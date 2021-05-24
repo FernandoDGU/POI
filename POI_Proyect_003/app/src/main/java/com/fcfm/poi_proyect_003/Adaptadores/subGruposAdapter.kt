@@ -1,5 +1,6 @@
 package com.fcfm.poi_proyect_003.Adaptadores
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fcfm.poi_proyect_003.Clases.SubGrupos
 import com.fcfm.poi_proyect_003.Fragment.FragmentoGrupo
 import com.fcfm.poi_proyect_003.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.group_list.view.*
 
 interface SubGruposClickListener{
@@ -28,7 +30,8 @@ class subGruposAdapter(private val context: FragmentoGrupo,
             //itemView.txtNombreGrupoLista.text = currentGrup.nombreGrupo
             itemView.txtNombreGrupoLista.text = currentGroup.nombreGrupo
             val imagenRec = itemView.ivSubGrupoRec
-            
+            val imagenUri = Uri.parse(currentGroup.imagen)
+            Picasso.get().load(imagenUri).into(imagenRec)
             itemView.txtNombreGrupoLista.setOnClickListener(null)
             itemView.txtNombreGrupoLista.setOnClickListener{
                 subGrupoClickListener.subGrupoListener(currentGroup)

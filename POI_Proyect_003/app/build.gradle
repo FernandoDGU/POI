@@ -37,7 +37,7 @@ android {
 
 dependencies {
 
-    //implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.Drjacky:ImagePicker:2.1.6'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -54,6 +54,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation 'androidx.multidex:multidex:2.0.1'
-
 
 }

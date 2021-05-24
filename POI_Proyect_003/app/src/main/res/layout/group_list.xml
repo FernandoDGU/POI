@@ -25,9 +25,10 @@
 
             <ImageView
                 android:id="@+id/ivSubGrupoRec"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
                 android:layout_marginStart="16dp"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

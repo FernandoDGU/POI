@@ -135,7 +135,7 @@ class  RegistroActivity : AppCompatActivity() {
             password = txtRegistroPass.text.toString()
             carreraUsuario = carrera
             estado = "Desconectado"
-            //MandarDatos(userName, password, email, carreraUsuario, estado)
+            //MandarDatos(userName, password, email, carreraUsuario, estado, "")
             val file:File = File(imagenPath)
             subirImagen(file,email)
             Toast.makeText(applicationContext, "Usuario creado con exito", Toast.LENGTH_SHORT).show()
@@ -191,8 +191,6 @@ class  RegistroActivity : AppCompatActivity() {
                     //Log.w("LIGA",it.toString())
                     imagenUrl = it.toString()
                     MandarDatos(userName, password, email, carreraUsuario, estado, imagenUrl)
-                    //crearGrupo(SubGrupos("", carreraUser, nombreGrupo, imagenUrl), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
-
                 }
 
             }

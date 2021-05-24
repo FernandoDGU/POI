@@ -30,10 +30,11 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/imageView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/ivRegistro"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
                     android:layout_marginTop="16dp"
+                    android:scaleType="centerCrop"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.499"
                     app:layout_constraintStart_toStartOf="parent"
@@ -137,10 +138,10 @@
                     android:textAllCaps="false"
                     android:textColor="#5E5E5E"
                     app:backgroundTint="@color/white"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView8"
+                    app:layout_constraintEnd_toEndOf="@+id/ivRegistro"
                     app:layout_constraintHorizontal_bias="0.476"
-                    app:layout_constraintStart_toStartOf="@+id/imageView8"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+                    app:layout_constraintStart_toStartOf="@+id/ivRegistro"
+                    app:layout_constraintTop_toBottomOf="@+id/ivRegistro" />
 
                 <ProgressBar
                     android:id="@+id/progressBar2"
@@ -149,9 +150,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-                    app:layout_constraintStart_toEndOf="@+id/imageView8"
-                    app:layout_constraintTop_toTopOf="@+id/imageView8" />
+                    app:layout_constraintBottom_toBottomOf="@+id/ivRegistro"
+                    app:layout_constraintStart_toEndOf="@+id/ivRegistro"
+                    app:layout_constraintTop_toTopOf="@+id/ivRegistro" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

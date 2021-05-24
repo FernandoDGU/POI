@@ -136,9 +136,6 @@ class AltaGruposActivity: AppCompatActivity() {
             //val filePath:String = ImagePicker.getFilePath(data)!!
 
             imagenPath = ImagePicker.getFilePath(data)!!
-
-
-
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
         } else {
@@ -160,8 +157,6 @@ class AltaGruposActivity: AppCompatActivity() {
 
     private fun subirImagen(archivoImagen: File, idSubgrupo: String){//:String{
 
-        var urlImage:String = "0"
-
         //Mostramos el progressBar
         findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.VISIBLE
 
@@ -173,108 +168,27 @@ class AltaGruposActivity: AppCompatActivity() {
                     findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
 
                     imagenesSubgruposRef.downloadUrl.addOnSuccessListener {
-                        Log.w("LIGA",it.toString())
+                        //Log.w("LIGA",it.toString())
                         imagenUrl = it.toString()
                         crearGrupo(SubGrupos("", carreraUser, nombreGrupo, imagenUrl), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
-                        //obtenerURL(it.toString())
-
-
                     }
-
-                    /*imagenesSubgruposRef.downloadUrl.addOnCompleteListener{
-                        task ->
-                        if (task.isSuccessful) {
-                            val downloadUri = task.result
-                            imagenUrl = "12345"//downloadUri.toString()
-                        }
-                    }*/
 
                 }
 
                 .addOnFailureListener{
                     findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
                 }
-        //return urlImage
     }
 
-    /*fun agregarGrupoB/D(nombreGrupo:String,descGrupo:String){
-
-        val firebaseUser = FirebaseAuth.getInstance().currentUser
-
-        var reference:DatabaseReference? = FirebaseDatabase.getInstance().getReference()
-
-        var grupo:HashMap<String, String> = HashMap()
-        grupo.put("nombreGrupo", nombreGrupo)
-        grupo.put("descGrupo", descGrupo)
-        grupo.put("idCreador", firebaseUser!!.uid)
-
-        reference!!.child("Grupos").push().setValue(grupo)
-
-        finish()
-
-        /*var database: DatabaseReference
-        database = FirebaseDatabase.getInstance().reference
-
-        var firebaseUser: FirebaseUser? = null
-        var reference: DatabaseReference? = null
-        var userId = intent.getStringExtra("idAlmuno")
-        firebaseUser = FirebaseAuth.getInstance().currentUser
-        reference = FirebaseDatabase.getInstance().getReference("Usuarios").child(userId!!)
-        database.child("Grupos").setValue(Grupo(nombreGrupo,descGrupo,userId.toString()))*/
-
-    }*/
-
-    private fun crearGrupo(subGrupos: SubGrupos, usuarios: Usuarios){//: String{
+    private fun crearGrupo(subGrupos: SubGrupos, usuarios: Usuarios){
         val mensajeFirebase = subRef.push()
         subGrupos.id = mensajeFirebase.key ?: "" //Puede ser nulo
-
-
-
-
-
-
-        //Mostramos el progressBar
-        /*findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.VISIBLE
-        val archivoImagen:File = File(imagenPath)
-
-        val imagenesSubgruposRef = storageRef.child("imagenesSubgrupos/${subGrupos.id}") //Enviar id del subgrupo
-
-        imagenesSubgruposRef.putFile(Uri.fromFile(archivoImagen))
-
-            .addOnSuccessListener {
-                findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
-
-                imagenesSubgruposRef.downloadUrl.addOnSuccessListener {
-
-
-                }
-
-            }
-
-            .addOnFailureListener{
-                findViewById<ProgressBar>(R.id.progressBar3).visibility = android.view.View.GONE
-            }
-
-         */
-
-
-
-
-
-        /*val ImagenUrl: String = "Prueba"
-        subGrupos.imagen = ImagenUrl.toString()//"Hola"//it.toString()*/
 
         mensajeFirebase.setValue(subGrupos)
         val child = subRef.child(subGrupos.id).
         child("Participantes").push()
 
         child.setValue(usuarios)
-
-        //return subGrupos.id
-
     }
 
-    /*private fun obtenerURL(urlImage: String){
-        imagenUrl = urlImage
-    }*/
 }

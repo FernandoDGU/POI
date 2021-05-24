@@ -70,28 +70,42 @@ class RegistroActivity : AppCompatActivity() {
 package com.fcfm.poi_proyect_003
 
 
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import com.fcfm.poi_proyect_003.Clases.Usuarios
+import com.github.drjacky.imagepicker.ImagePicker
+import com.github.drjacky.imagepicker.constant.ImageProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_registro.*
+import java.io.File
 
 class  RegistroActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var databaseReference: DatabaseReference
+    private val storageRef = FirebaseStorage.getInstance().reference
+
     var carrera: String = ""
+    var imagenPath = ""
+    var imagenUrl = ""
+
+    var estado = ""
+    var userName = ""
+    var email = ""
+    var password = ""
+    var carreraUsuario = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
@@ -102,8 +116,6 @@ class  RegistroActivity : AppCompatActivity() {
         val carreras = arrayOf("LMAD", "LCC", "LA", "LF", "LM", "LSTI")
 
         spinnerRef.adapter = ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, carreras)
-
-
 
         spinnerRef.onItemSelectedListener = object:AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -116,21 +128,81 @@ class  RegistroActivity : AppCompatActivity() {
 
         }
 
+        //Agregar un usuario
         btnAceptar.setOnClickListener {
-            val userName = txtRegistroNombre.text.toString()
-            val email = txtRegistroCorreo.text.toString()
-            val password = txtRegistroPass.text.toString()
-            val carreraUsuario = carrera
-            val estado = "Desconectado"
-            MandarDatos(userName, password, email, carreraUsuario, estado)
+            userName = txtRegistroNombre.text.toString()
+            email = txtRegistroCorreo.text.toString()
+            password = txtRegistroPass.text.toString()
+            carreraUsuario = carrera
+            estado = "Desconectado"
+            //MandarDatos(userName, password, email, carreraUsuario, estado)
+            val file:File = File(imagenPath)
+            subirImagen(file,email)
+            Toast.makeText(applicationContext, "Usuario creado con exito", Toast.LENGTH_SHORT).show()
 
         }
 
-
+        //Boton para subir imagen
+        btnSubirImagenRegistro.setOnClickListener{
+            seleccionarImagen(ImageProvider.GALLERY)
+        }
 
     }
 
-    private fun MandarDatos(userName:String,password:String, email:String, carreraUsuario:String, estado:String){
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK){
+            val fileUri = data?.data
+            findViewById<ImageView>(R.id.ivRegistro).setImageURI(fileUri)
+            imagenPath = ImagePicker.getFilePath(data)!!
+        }else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun seleccionarImagen(provider: ImageProvider){
+
+        val intentGallery = ImagePicker.with(this)
+            .crop()        //Crop image(Optional), Check Customization for more option
+            .cropOval()    //Allow dimmed layer to have a circle inside
+            .maxResultSize(1080, 1080) //Final image resolution will be less than 1080 x 1080(Optional)
+            .provider(provider)
+            .createIntent()
+
+        startActivityForResult(intentGallery,1)
+    }
+
+
+    private fun subirImagen(archivoImagen: File, idSubgrupo: String){//:String{
+
+        //Mostramos el progressBar
+        findViewById<ProgressBar>(R.id.progressBar2).visibility = android.view.View.VISIBLE
+
+        val imagenesSubgruposRef = storageRef.child("imagenesUsuarios/$idSubgrupo.UsuariosImagen") //Enviar id del subgrupo
+
+        imagenesSubgruposRef.putFile(Uri.fromFile(archivoImagen))
+
+            .addOnSuccessListener {
+                findViewById<ProgressBar>(R.id.progressBar2).visibility = android.view.View.GONE
+
+                imagenesSubgruposRef.downloadUrl.addOnSuccessListener {
+                    //Log.w("LIGA",it.toString())
+                    imagenUrl = it.toString()
+                    MandarDatos(userName, password, email, carreraUsuario, estado, imagenUrl)
+                    //crearGrupo(SubGrupos("", carreraUser, nombreGrupo, imagenUrl), Usuarios(idU, nombreU, "", carreraU, correoU, estadoU))
+
+                }
+
+            }
+
+            .addOnFailureListener{
+                findViewById<ProgressBar>(R.id.progressBar2).visibility = android.view.View.GONE
+            }
+    }
+
+    private fun MandarDatos(userName:String,password:String, email:String, carreraUsuario:String, estado:String, imagen:String){
         auth.createUserWithEmailAndPassword(email,password)
             .addOnCompleteListener(this){
                 if (it.isSuccessful){
@@ -146,6 +218,7 @@ class  RegistroActivity : AppCompatActivity() {
                     hashMap.put("carrera",carreraUsuario)
                     hashMap.put("estado",estado)
                     hashMap.put("correo",email)
+                    hashMap.put("imagen",imagen)
 
                     databaseReference.setValue(hashMap).addOnCompleteListener(this){
                         if (it.isSuccessful){

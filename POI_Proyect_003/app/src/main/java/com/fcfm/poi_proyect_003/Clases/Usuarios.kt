@@ -6,7 +6,8 @@ class Usuarios(
     var contrasena: String = "",
     var carrera: String = "",
     var correo: String = "",
-    var estado: String = ""
+    var estado: String = "",
+    var imagen: String = ""
 ) {
 
 }

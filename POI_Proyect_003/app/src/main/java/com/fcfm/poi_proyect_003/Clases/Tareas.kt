@@ -6,5 +6,6 @@ class Tareas (
     var Titulo: String = "",
     var Desc: String = "",
     var check: Boolean = false,
-    var idSub: String = ""
+    var idSub: String = "",
+    var imagen:String = ""
 )

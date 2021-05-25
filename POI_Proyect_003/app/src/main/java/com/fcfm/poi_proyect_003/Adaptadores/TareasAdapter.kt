@@ -1,12 +1,15 @@
 package com.fcfm.poi_proyect_003.Adaptadores
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fcfm.poi_proyect_003.Clases.Tareas
 import com.fcfm.poi_proyect_003.Fragment.FragmentoTareas
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_tareas.view.*
+import kotlinx.android.synthetic.main.item_usuario2.view.*
 
 interface TareasClickListener{
     fun detalle(Dtarea: Tareas)
@@ -23,6 +26,11 @@ class TareasAdapter(
                 itemView.txtNombreTarea.text = tarea.Titulo
                 itemView.txtDescTarea.text = tarea.Desc
                 itemView.chConcluir.isChecked = tarea.check
+                val imagen = itemView.imgTarea
+                val imageUri = Uri.parse(tarea.imagen)
+                Picasso.get().load(imageUri).into(imagen)
+
+
                 itemView.imgTarea.setOnClickListener(null)
                 itemView.imgTarea.setOnClickListener{
                     tareaClick.detalle(tarea)

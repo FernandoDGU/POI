@@ -76,6 +76,7 @@
                         android:layout_width="96dp"
                         android:layout_height="88dp"
                         android:layout_marginTop="16dp"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toTopOf="@+id/btnSubirImagenSG"
                         app:layout_constraintEnd_toEndOf="@+id/btnSubirImagenSG"
                         app:layout_constraintHorizontal_bias="0.484"

@@ -3,7 +3,9 @@ package com.fcfm.poi_proyect_003
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.fcfm.poi_proyect_003.Clases.Usuarios
@@ -66,7 +68,9 @@ class HomeActivity() : AppCompatActivity(){
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                //Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@HomeActivity, "Error datos no cargados", Toast.LENGTH_SHORT)
+                Log.w("Error", error.toString())
             }
 
         })

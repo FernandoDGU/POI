@@ -79,7 +79,7 @@ class FragmentoConfiguracion: Fragment() {
             val intent = Intent(this@FragmentoConfiguracion.context, MainActivity::class.java)
             startActivity(intent)
 
-            FirebaseAuth.getInstance().signOut()
+            //FirebaseAuth.getInstance().signOut()
             //var auth = FirebaseAuth.getInstance()
 
 
@@ -102,7 +102,7 @@ class FragmentoConfiguracion: Fragment() {
                     })
 
             //auth.signOut()
-
+            FirebaseAuth.getInstance().signOut()
 
         }
 

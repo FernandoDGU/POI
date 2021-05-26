@@ -1,22 +1,38 @@
 package com.fcfm.poi_proyect_003
 
+import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.fcfm.poi_proyect_003.Adaptadores.chatGrupalAdapter
 import com.fcfm.poi_proyect_003.Clases.ChatGrupal
+import com.fcfm.poi_proyect_003.Clases.Tareas
 import com.fcfm.poi_proyect_003.Clases.Usuarios
 import com.fcfm.poi_proyect_003.Fragment.FragmentoGrupo
+import com.github.drjacky.imagepicker.ImagePicker
+import com.github.drjacky.imagepicker.constant.ImageProvider
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_chat_grupal.*
 import kotlinx.android.synthetic.main.mensaje.*
+import java.io.File
 import java.util.concurrent.locks.Condition
 import javax.crypto.Cipher
 import javax.crypto.spec.IvParameterSpec
@@ -29,6 +45,7 @@ class ChatGrupoActivity: AppCompatActivity(){
     private val chatRef = database.getReference("SalaChat")
     private val Ref = database.getReference()
     private lateinit var auth: FirebaseAuth
+    private val storageRef = FirebaseStorage.getInstance().reference
 
     private val listaMensajes  = mutableListOf<ChatGrupal>()
     private val adaptadorMensaje = chatGrupalAdapter(listaMensajes)
@@ -44,10 +61,16 @@ class ChatGrupoActivity: AppCompatActivity(){
     var CarreraUsuario : String = ""
     var NombreGrupo: String = ""
     var condition: Boolean = false
+    var encryptCondition:Boolean = false
+    var entro:Boolean = false
 
 
     //Cifrado de mensajes
     private val CIPHER_TRANSFORMS = "AES/CBC/PKCS5PADDING"
+
+    //Prueba imagenes
+    var imagenPath = ""
+    var imagenUrl = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,16 +132,17 @@ class ChatGrupoActivity: AppCompatActivity(){
 
         //Aquí va la encriptacion
         btnEnviarMensaje.setOnClickListener {
+
             if(condition == true){
                 if (txtEnviarMensaje.text.toString() !== "") {
                     var mensaje = txtEnviarMensaje.text.toString()
                     val mensajeEncrypted = cifrar(mensaje, "FER12345")
-                    if(chEncrypted.isChecked){
+                    if(encryptCondition == true){
                         enviarMensajeSub(
-                            ChatGrupal("", mensajeEncrypted, CorreoUsuario, nombre, ServerValue.TIMESTAMP), true)
+                            ChatGrupal("", mensajeEncrypted, CorreoUsuario, nombre, ServerValue.TIMESTAMP, false, ""), true)
                     }else{
                         enviarMensajeSub(
-                            ChatGrupal("", mensaje, CorreoUsuario, nombre, ServerValue.TIMESTAMP), false)
+                            ChatGrupal("", mensaje, CorreoUsuario, nombre, ServerValue.TIMESTAMP, false, ""), false)
                     }
                     txtEnviarMensaje.text.clear()
                 }
@@ -126,10 +150,10 @@ class ChatGrupoActivity: AppCompatActivity(){
                 if (txtEnviarMensaje.text.toString() !== "") {
                     var mensaje = txtEnviarMensaje.text.toString()
                     val mensajeEncrypted = cifrar(mensaje, "FER12345")
-                    if(chEncrypted.isChecked){
-                        enviarMensaje(ChatGrupal("", mensajeEncrypted, CorreoUsuario, nombre, ServerValue.TIMESTAMP), true)
+                    if(encryptCondition == true){
+                        enviarMensaje(ChatGrupal("", mensajeEncrypted, CorreoUsuario, nombre, ServerValue.TIMESTAMP, false, ""), true)
                     }else{
-                        enviarMensaje(ChatGrupal("", mensaje, CorreoUsuario, nombre, ServerValue.TIMESTAMP), false)
+                        enviarMensaje(ChatGrupal("", mensaje, CorreoUsuario, nombre, ServerValue.TIMESTAMP, false, ""), false)
                     }
 
                     txtEnviarMensaje.text.clear()
@@ -138,6 +162,29 @@ class ChatGrupoActivity: AppCompatActivity(){
 
         }
 
+        //Prueba cambio de color iconImage
+        iconLock.setOnClickListener{
+            if(entro == false){
+                DrawableCompat.setTint(iconLock.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.white))
+                entro = true
+                encryptCondition = false
+                Toast.makeText(this, "Encriptacion apagada", Toast.LENGTH_SHORT).show()
+            }else{
+                DrawableCompat.setTint(iconLock.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.green))
+                Toast.makeText(this, "Encriptacion encendida", Toast.LENGTH_SHORT).show()
+                entro = false
+                encryptCondition = true
+            }
+
+        }
+
+        //Prueba imagen chat iconLock
+        iconImage.setOnClickListener {
+            val intent = Intent()
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.type = "image/*"
+            startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"), 123)
+        }
 
         if(condition == true){
             rvChatGrupal.adapter = adaptadorMensaje
@@ -153,6 +200,55 @@ class ChatGrupoActivity: AppCompatActivity(){
 
 
     }
+
+    //Prueba imagenes
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 123 && resultCode == android.app.Activity.RESULT_OK && data!!.data!=null){
+            val loadingBar = ProgressDialog(this)
+            loadingBar.setMessage("Enviando imagen..")
+            loadingBar.show()
+            val fileUri = data.data
+            val storageRef = FirebaseStorage.getInstance().reference.child("imagenesChats")
+            val ref = FirebaseDatabase.getInstance().reference
+            val idMessage = ref.push().key
+            val filePath = storageRef.child("$idMessage.jgp")
+
+            var uploadTask: StorageTask<*>
+            uploadTask = filePath.putFile(fileUri!!)
+
+            uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>>{
+                task ->
+                if(!task.isSuccessful)
+                {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                return@Continuation filePath.downloadUrl
+            }).addOnCompleteListener{
+                task ->
+                if (task.isSuccessful){
+                    val downloadUrl = task.result
+                    val url = downloadUrl.toString()
+
+
+                    if(condition == true) {
+                        enviarMensajeSub(
+                            ChatGrupal("", "", CorreoUsuario, nombre, ServerValue.TIMESTAMP, false, url), false
+                        )
+                    }else{
+                        enviarMensaje(ChatGrupal("", "", CorreoUsuario, nombre, ServerValue.TIMESTAMP,  false, url), false)
+                    }
+
+                    Toast.makeText(this, "Imagen subida con exito", Toast.LENGTH_SHORT).show()
+                    loadingBar.hide()
+                }
+            }
+        }
+    }
+
 
     private fun enviarMensaje(mensaje: ChatGrupal, cifrado: Boolean){
         //CARRERA USUARIO ES EL NOMBRE DEL GRUPO

@@ -9,7 +9,8 @@ class ChatGrupal(
     var de: String = "",
     var deNombre: String ="",
     var timestamp: Any? = null,
-    var encrypt: Boolean = false
+    var encrypt: Boolean = false,
+    var image: String = ""
 ) {
     @Exclude
     var esMio: Boolean = false

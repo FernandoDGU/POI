@@ -30,7 +30,15 @@
             android:maxEms="20"
             android:minEms="10"
             android:textColor="#FFFFFF"
-            tools:text="Hola ¿cómo estás?" />
+            tools:text="Hola ¿cómo estás?"
+           />
+
+        <ImageView
+            android:id="@+id/ivMessage"
+            android:layout_width="170dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
 
         <View
             android:id="@+id/View"

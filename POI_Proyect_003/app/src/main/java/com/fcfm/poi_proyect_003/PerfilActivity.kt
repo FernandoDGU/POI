@@ -9,7 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_profile.*
-import kotlinx.android.synthetic.main.activity_usuarios.imgBack
+//import kotlinx.android.synthetic.main.activity_usuarios.imgBack
 
 class PerfilActivity : AppCompatActivity() {
 

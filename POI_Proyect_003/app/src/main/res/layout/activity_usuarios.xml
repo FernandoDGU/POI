@@ -15,23 +15,23 @@
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <ImageView
+        <!--<ImageView
             android:id="@+id/imgBack"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:layout_marginStart="10dp"
             android:layout_weight="0.5"
             android:padding="5dp"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_back" /> -->
 
         <TextView
             android:id="@+id/userNameContactos"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="Perfil"
+            android:text="   Perfil"
             android:textColor="#DFDFDF"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
 

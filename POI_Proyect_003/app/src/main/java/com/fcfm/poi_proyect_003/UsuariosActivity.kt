@@ -21,9 +21,9 @@ class UsuariosActivity : AppCompatActivity() {
         setContentView(R.layout.activity_usuarios)
         userRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayout.VERTICAL, false)
 
-        imgBack.setOnClickListener {
+        /*imgBack.setOnClickListener {
             onBackPressed()
-        }
+        }*/
 
 
 

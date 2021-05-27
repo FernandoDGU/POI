@@ -21,8 +21,9 @@
         android:textColorHint="#AAAAAA"
         app:layout_constraintBottom_toTopOf="@+id/txtPass"
         app:layout_constraintEnd_toEndOf="@+id/txtPass"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/txtPass"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="MissingConstraints" />
 
 
@@ -37,9 +38,11 @@
         android:inputType="textPassword"
         android:textColor="#AAAAAA"
         android:textColorHint="#AAAAAA"
-        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/btnIniciarSesion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCorreo" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -56,7 +59,9 @@
         android:hint="Registrarse"
         android:textColorHint="#AEAEAE"
         app:backgroundTint="@color/blue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/txtPass"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/txtPass"
         app:layout_constraintTop_toBottomOf="@+id/btnIniciarSesion"
         tools:ignore="MissingConstraints"></Button>
@@ -69,10 +74,25 @@
         android:hint="Iniciar Sesión"
         android:textColorHint="#D3D3D3"
         app:backgroundTint="@color/blue"
+        app:layout_constraintBottom_toTopOf="@+id/btnRegistro"
         app:layout_constraintEnd_toEndOf="@+id/txtPass"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/txtPass"
-        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/txtPass"
         tools:ignore="MissingConstraints"></Button>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtCorreo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:srcCompat="@drawable/ic_logo2"
+        tools:ignore="VectorDrawableCompat" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -71,6 +71,7 @@ package com.fcfm.poi_proyect_003
 
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -81,13 +82,19 @@ import androidx.core.view.get
 import com.fcfm.poi_proyect_003.Clases.Usuarios
 import com.github.drjacky.imagepicker.ImagePicker
 import com.github.drjacky.imagepicker.constant.ImageProvider
+import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_registro.*
+import kotlinx.android.synthetic.main.mensaje.view.*
 import java.io.File
 
 class  RegistroActivity : AppCompatActivity() {
@@ -135,21 +142,28 @@ class  RegistroActivity : AppCompatActivity() {
             password = txtRegistroPass.text.toString()
             carreraUsuario = carrera
             estado = "Desconectado"
-            //MandarDatos(userName, password, email, carreraUsuario, estado, "")
-            val file:File = File(imagenPath)
-            subirImagen(file,email)
+            MandarDatos(userName, password, email, carreraUsuario, estado,
+                "https://firebasestorage.googleapis." +
+                        "com/v0/b/proyectopoi003.appspot.com/o/imagenesUsuarios%2F-" +
+                        "Mag71C2ihH1IcIHgdkq.jgp?alt=media&token=a94541bd-964e-41b3-894a-03daa3df1681")
+            //val file:File = File(imagenPath)
+            //subirImagen(file,email)
             Toast.makeText(applicationContext, "Usuario creado con exito", Toast.LENGTH_SHORT).show()
 
         }
 
         //Boton para subir imagen
         btnSubirImagenRegistro.setOnClickListener{
-            seleccionarImagen(ImageProvider.GALLERY)
+            //seleccionarImagen(ImageProvider.GALLERY)
+            val intent = Intent()
+            intent.action = Intent.ACTION_GET_CONTENT
+            intent.type = "image/*"
+            startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"), 123)
         }
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){
             val fileUri = data?.data
@@ -159,6 +173,46 @@ class  RegistroActivity : AppCompatActivity() {
             Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }*/
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 123 && resultCode == android.app.Activity.RESULT_OK && data!!.data!=null){
+            val loadingBar = ProgressDialog(this)
+            loadingBar.setMessage("Enviando imagen..")
+            loadingBar.show()
+            val fileUri = data.data
+            val storageRef = FirebaseStorage.getInstance().reference.child("imagenesChats")
+            val ref = FirebaseDatabase.getInstance().reference
+            val idMessage = ref.push().key
+            val filePath = storageRef.child("$idMessage.jgp")
+
+            var uploadTask: StorageTask<*>
+            uploadTask = filePath.putFile(fileUri!!)
+
+            uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>>{
+                    task ->
+                if(!task.isSuccessful)
+                {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                return@Continuation filePath.downloadUrl
+            }).addOnCompleteListener{
+                    task ->
+                if (task.isSuccessful){
+                    val downloadUrl = task.result
+                    val url = downloadUrl.toString()
+                    val imagen = ivRegistro
+                    val imageUri = Uri.parse(url)
+                    Picasso.get().load(imageUri).into(imagen)
+                    Toast.makeText(this, "Imagen subida con exito", Toast.LENGTH_SHORT).show()
+                    loadingBar.hide()
+                }
+            }
         }
     }
 

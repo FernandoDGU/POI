@@ -2,6 +2,7 @@ package com.fcfm.poi_proyect_003.Adaptadores
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.fcfm.poi_proyect_003.ChatActivity
 import com.fcfm.poi_proyect_003.Clases.Usuarios
@@ -17,6 +20,7 @@ import com.fcfm.poi_proyect_003.R
 import com.fcfm.poi_proyect_003.UsuariosActivity
 import com.google.android.material.internal.ContextUtils.getActivity
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_chat_grupal.*
 
 interface ContactoClick {
     fun detalle(Usuario:Usuarios)
@@ -41,6 +45,13 @@ class UsuariosAdapter(private val context: FragmentoChat, private val userList:A
         val user = userList[position]
        // val firebase: FirebaseUser = FirebaseAuth.getInstance().currentUser!!
         holder.txtUserName.text = user.nombre
+        if(user.estado == "Conectado"){
+            holder.txtEstado.setTextColor(Color.parseColor("#acff7a"));
+            //DrawableCompat.setTint(iconLock.getDrawable(), ContextCompat.getColor(getApplicationContext(), R.color.green))
+        }else{
+            holder.txtEstado.setTextColor(Color.parseColor("#ff7a7a"));
+        }
+
         holder.txtEstado.text = user.estado
         holder.Foto
         val imagenUser = holder.Foto

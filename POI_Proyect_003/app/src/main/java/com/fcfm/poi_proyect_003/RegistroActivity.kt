@@ -153,13 +153,13 @@ class  RegistroActivity : AppCompatActivity() {
         }
 
         //Boton para subir imagen
-        btnSubirImagenRegistro.setOnClickListener{
-            //seleccionarImagen(ImageProvider.GALLERY)
-            val intent = Intent()
-            intent.action = Intent.ACTION_GET_CONTENT
-            intent.type = "image/*"
-            startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"), 123)
-        }
+        //btnSubirImagenRegistro.setOnClickListener{
+        //    //seleccionarImagen(ImageProvider.GALLERY)
+        //    val intent = Intent()
+        //    intent.action = Intent.ACTION_GET_CONTENT
+        //    intent.type = "image/*"
+        //    startActivityForResult(Intent.createChooser(intent,"Selecciona una imagen"), 123)
+        //}
 
     }
 
